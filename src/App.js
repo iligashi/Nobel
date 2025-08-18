@@ -89,7 +89,7 @@ function SectionCard({ children }){
   )
 }
 
-const placeholderVideo = "https://cdn.coverr.co/videos/coverr-a-wedding-reception-2556/1080p.mp4";
+const placeholderVideo = "https://video-previews.elements.envatousercontent.com/h264-video-previews/6401b1ea-1165-483f-85fa-3c8677fe469f/47247305.mp4";
 const placeholderImg = (id) => `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=1200&q=60`;
 
 function Salla({ index, capacity, events, video, photos }){
