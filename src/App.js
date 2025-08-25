@@ -966,7 +966,7 @@ function VideoHero({ title, subtitle, language }) {
           poster="/placeholder-28ejl.png"
         >
           <source
-            src="https://video-previews.elements.envatousercontent.com/h264-video-previews/6401b1ea-1165-483f-85fa-3c8677fe469f/47247305.mp4"
+            src={require('./img/open.mp4')}
             type="video/mp4"
           />
         </video>
