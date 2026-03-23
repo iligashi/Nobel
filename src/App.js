@@ -1417,8 +1417,16 @@ function Footer({ language }) {
           <p className="text-white/30 text-xs tracking-widest">
             &copy; 2024 NOBEL VENUES. {t.copyright}
           </p>
-          <p className="text-white/30 text-xs tracking-[3px]">
-            {t.luxuryModern}
+          <p className="text-white/30 text-xs tracking-widest">
+            {language === "al" ? "Krijuar nga" : "Made by"}{" "}
+            <a
+              href="https://nexoraagency.llc"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gold/60 hover:text-gold transition-colors"
+            >
+              nexoraagency.llc
+            </a>
           </p>
         </div>
       </div>
