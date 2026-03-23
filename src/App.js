@@ -510,9 +510,9 @@ function Navbar({ language, setLanguage, currentPage, setCurrentPage }) {
 
   const navItems = [
     { name: t.home, action: () => { setCurrentPage("home"); window.scrollTo({ top: 0, behavior: "smooth" }) } },
-    { name: t.salla1, href: "#salla1" },
-    { name: t.salla2, href: "#salla2" },
-    { name: t.salla3, href: "#salla3" },
+    { name: t.salla1, action: () => { setCurrentPage("details"); window.scrollTo({ top: 0 }) } },
+    { name: t.salla2, action: () => { setCurrentPage("details"); window.scrollTo({ top: 0 }) } },
+    { name: t.salla3, action: () => { setCurrentPage("details"); window.scrollTo({ top: 0 }) } },
     { name: t.details, action: () => { setCurrentPage("details"); window.scrollTo({ top: 0 }) } },
     { name: t.contact, onClick: () => setIsContactModalOpen(true) },
   ]
@@ -782,7 +782,7 @@ const venueImages = [hallImage1, hallImage2, hallImage3]
 const venueLabels = ["HALL ONE", "HALL TWO", "HALL THREE"]
 const venueCapacities = ["500", "350", "220"]
 
-function VenueShowcase({ id, index, title, description, language }) {
+function VenueShowcase({ id, index, title, description, language, setCurrentPage }) {
   const t = translations[language]
   const isReversed = index % 2 !== 0
   const image = venueImages[index]
@@ -840,7 +840,7 @@ function VenueShowcase({ id, index, title, description, language }) {
 
             <button
               className="btn-classic"
-              onClick={() => document.querySelector("#salla1")?.scrollIntoView({ behavior: "smooth" })}
+              onClick={() => { setCurrentPage("details"); window.scrollTo({ top: 0 }) }}
             >
               {t.exploreVenue}
               <FiChevronRight className="w-4 h-4" />
@@ -856,7 +856,7 @@ function VenueShowcase({ id, index, title, description, language }) {
    HOME PAGE
    ═══════════════════════════════════════════════════ */
 
-function Home({ language }) {
+function Home({ language, setCurrentPage }) {
   const t = translations[language]
 
   const serviceIcons = [FiHeart, FiBriefcase, FiCoffee, FiUsers, FiMusic, FiCamera]
@@ -875,6 +875,7 @@ function Home({ language }) {
           : "Our largest and most elegant hall, suitable for grand weddings, conferences and corporate events. Capacity up to 500 guests."
         }
         language={language}
+        setCurrentPage={setCurrentPage}
       />
 
       {/* Thin Gold Line Separator */}
@@ -891,6 +892,7 @@ function Home({ language }) {
           : "A modern and flexible space, ideal for medium events, presentations and private parties. Capacity up to 350 guests."
         }
         language={language}
+        setCurrentPage={setCurrentPage}
       />
 
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
@@ -906,6 +908,7 @@ function Home({ language }) {
           : "Our most intimate hall, perfect for small weddings, seminars and family gatherings. Capacity up to 220 guests."
         }
         language={language}
+        setCurrentPage={setCurrentPage}
       />
 
       {/* ─── About Section ─── */}
@@ -1442,7 +1445,7 @@ function Layout() {
 
       <main>
         {currentPage === "home" ? (
-          <Home language={language} />
+          <Home language={language} setCurrentPage={setCurrentPage} />
         ) : currentPage === "details" ? (
           <DetailsPage language={language} setCurrentPage={setCurrentPage} />
         ) : null}
