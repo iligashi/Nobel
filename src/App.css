@@ -2,7 +2,7 @@
    NOBEL VENUES — Classic Luxury Design System
    ═══════════════════════════════════════════════ */
 
-@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap");
+/* Fonts are loaded via <link> in public/index.html (preconnect + stylesheet) */
 
 /* ─── Reset ─── */
 *,
@@ -124,7 +124,7 @@ body {
   letter-spacing: 2.5px;
   text-transform: uppercase;
   cursor: pointer;
-  transition: all 0.4s ease;
+  transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease;
   text-decoration: none;
 }
 
@@ -148,7 +148,7 @@ body {
   letter-spacing: 2.5px;
   text-transform: uppercase;
   cursor: pointer;
-  transition: all 0.4s ease;
+  transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease;
 }
 
 .btn-classic-light:hover {
@@ -171,7 +171,7 @@ body {
   letter-spacing: 2.5px;
   text-transform: uppercase;
   cursor: pointer;
-  transition: all 0.4s ease;
+  transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease;
 }
 
 .btn-filled:hover {
@@ -194,7 +194,7 @@ body {
   letter-spacing: 2.5px;
   text-transform: uppercase;
   cursor: pointer;
-  transition: all 0.4s ease;
+  transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease;
 }
 
 .btn-filled-dark:hover {
@@ -207,7 +207,7 @@ body {
   background: #fff;
   border: 1px solid var(--border-subtle);
   box-shadow: var(--shadow-soft);
-  transition: all 0.4s ease;
+  transition: border-color 0.4s ease, box-shadow 0.4s ease;
 }
 
 .classic-card:hover {
@@ -281,7 +281,7 @@ body {
   color: var(--charcoal);
   font-family: "Inter", sans-serif;
   font-size: 14px;
-  transition: all 0.3s ease;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
   outline: none;
 }
 
@@ -407,7 +407,7 @@ body {
   align-items: center;
   justify-content: center;
   margin: 0 auto 20px;
-  transition: all 0.3s ease;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .classic-card:hover .service-icon {
@@ -434,7 +434,7 @@ body {
   color: var(--gold-dark);
   background: var(--gold-muted);
   border: 1px solid var(--border-subtle);
-  transition: all 0.3s ease;
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
 
 .amenity-badge:hover {

@@ -504,7 +504,7 @@ function Navbar({ language, setLanguage, currentPage, setCurrentPage }) {
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 50)
-    window.addEventListener("scroll", handleScroll)
+    window.addEventListener("scroll", handleScroll, { passive: true })
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
@@ -805,6 +805,8 @@ function VenueShowcase({ id, index, title, description, language, setCurrentPage
               <img
                 src={image}
                 alt={title}
+                loading="lazy"
+                decoding="async"
                 className="w-full h-[400px] md:h-[500px] lg:h-[600px] object-cover"
               />
               <div className="absolute inset-0 border border-gold/20 m-4 pointer-events-none" />
@@ -1049,6 +1051,8 @@ function Home({ language, setCurrentPage }) {
           <img
             src={hallImage1}
             alt="Nobel Venues"
+            loading="lazy"
+            decoding="async"
             className="w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-black/60" />
@@ -1151,6 +1155,8 @@ function DetailsPage({ language, setCurrentPage }) {
                     <img
                       src={venueDetailImages[index]}
                       alt={venue.name}
+                      loading="lazy"
+                      decoding="async"
                       className="w-full h-[400px] lg:h-[500px] object-cover"
                     />
                     <div className="absolute inset-0 border border-gold/15 m-3 pointer-events-none" />
@@ -1292,6 +1298,8 @@ function DetailsPage({ language, setCurrentPage }) {
               <img
                 src={hallImage3}
                 alt="Location"
+                loading="lazy"
+                decoding="async"
                 className="w-full h-80 object-cover"
               />
             </div>
@@ -1327,6 +1335,8 @@ function DetailsPage({ language, setCurrentPage }) {
                 <img
                   src={image.src}
                   alt={image.alt}
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-72 object-cover transition-transform duration-700 group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all duration-500" />
