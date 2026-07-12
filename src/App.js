@@ -44,6 +44,7 @@ const translations = {
     salla2: "Salla 2",
     salla3: "Salla 3",
     contact: "Contact",
+    menus: "Menus",
     exploreVenue: "Explore Venues",
     scheduleTour: "Schedule a Tour",
     bookNow: "Book Now",
@@ -171,6 +172,7 @@ const translations = {
     salla2: "Salla 2",
     salla3: "Salla 3",
     contact: "Kontakti",
+    menus: "Menujtë",
     exploreVenue: "Eksploro Vendin",
     scheduleTour: "Planifiko një Vizitë",
     bookNow: "Rezervo Tani",
@@ -512,6 +514,17 @@ function Navbar({ language, setLanguage, currentPage, setCurrentPage }) {
     { name: t.salla1, action: () => { setCurrentPage("salla1"); window.scrollTo({ top: 0 }) } },
     { name: t.salla2, action: () => { setCurrentPage("salla2"); window.scrollTo({ top: 0 }) } },
     { name: t.salla3, action: () => { setCurrentPage("salla3"); window.scrollTo({ top: 0 }) } },
+    {
+      name: t.menus,
+      action: () => { setCurrentPage("menus"); window.scrollTo({ top: 0 }) },
+      dropdown: ["Menya 1","Menya 2","Menya 3","Menya 4","Menya 5"].map((name, i) => ({
+        name,
+        action: () => {
+          setCurrentPage("menus")
+          setTimeout(() => document.getElementById(`menu-${i}`)?.scrollIntoView({ behavior: "smooth", block: "start" }), 150)
+        },
+      })),
+    },
     { name: t.details, action: () => { setCurrentPage("details"); window.scrollTo({ top: 0 }) } },
     { name: t.contact, action: () => { setCurrentPage("contact"); window.scrollTo({ top: 0 }) } },
   ]
@@ -551,26 +564,52 @@ function Navbar({ language, setLanguage, currentPage, setCurrentPage }) {
 
             {/* Desktop Navigation */}
             <div className="hidden lg:flex items-center gap-10">
-              {navItems.map((item) => (
-                <button
-                  key={item.name}
-                  onClick={
-                    item.action ||
-                    item.onClick ||
-                    (() => {
-                      if (item.href) {
-                        setCurrentPage("home")
-                        setTimeout(() => {
-                          document.querySelector(item.href)?.scrollIntoView({ behavior: "smooth" })
-                        }, 100)
-                      }
-                    })
-                  }
-                  className={`nav-link ${!isScrolled ? "nav-link-light" : ""}`}
-                >
-                  {item.name}
-                </button>
-              ))}
+              {navItems.map((item) =>
+                item.dropdown ? (
+                  <div key={item.name} className="relative group">
+                    <button
+                      onClick={item.action}
+                      className={`nav-link flex items-center gap-1 ${!isScrolled ? "nav-link-light" : ""}`}
+                    >
+                      {item.name}
+                      <FiChevronRight className="w-3 h-3 rotate-90 opacity-60" />
+                    </button>
+                    {/* Dropdown panel */}
+                    <div className="absolute top-full left-1/2 -translate-x-1/2 pt-4 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all duration-200 z-50">
+                      <div className="bg-ivory border border-gold/20 shadow-medium py-2 min-w-[150px]">
+                        {item.dropdown.map((sub) => (
+                          <button
+                            key={sub.name}
+                            onClick={sub.action}
+                            className="block w-full text-left px-5 py-2.5 text-[11px] tracking-widest uppercase text-charcoal hover:text-gold hover:bg-cream transition-colors"
+                          >
+                            {sub.name}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  <button
+                    key={item.name}
+                    onClick={
+                      item.action ||
+                      item.onClick ||
+                      (() => {
+                        if (item.href) {
+                          setCurrentPage("home")
+                          setTimeout(() => {
+                            document.querySelector(item.href)?.scrollIntoView({ behavior: "smooth" })
+                          }, 100)
+                        }
+                      })
+                    }
+                    className={`nav-link ${!isScrolled ? "nav-link-light" : ""}`}
+                  >
+                    {item.name}
+                  </button>
+                )
+              )}
             </div>
 
             {/* Desktop Actions */}
@@ -1011,6 +1050,115 @@ const sallaMenus = [
   ],
 ]
 
+const allMenus = [
+  { name: "Menya 1", items: sallaMenus[1][0].items },
+  { name: "Menya 2", items: sallaMenus[0][0].items },
+  { name: "Menya 3", items: sallaMenus[0][1].items },
+  { name: "Menya 4", items: sallaMenus[0][2].items },
+  { name: "Menya 5", items: sallaMenus[2][0].items },
+]
+
+/* ═══════════════════════════════════════════════════
+   MENUS PAGE
+   ═══════════════════════════════════════════════════ */
+
+function MenusPage({ language, setCurrentPage }) {
+  const t = translations[language]
+
+  return (
+    <div className="min-h-screen bg-ivory pt-24">
+      {/* Header */}
+      <section className="py-20 bg-charcoal text-white">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <motion.button
+            onClick={() => { setCurrentPage("home"); window.scrollTo({ top: 0 }) }}
+            className="flex items-center gap-2 text-white/60 hover:text-gold transition-colors mb-12 text-sm tracking-widest uppercase"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+          >
+            <FiArrowLeft className="w-4 h-4" />
+            <span>{t.backToHome}</span>
+          </motion.button>
+
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="text-center"
+          >
+            <span className="label-elegant">{language === "al" ? "ÇFARË OFROJMË" : "WHAT WE OFFER"}</span>
+            <h1 className="text-5xl md:text-6xl font-display font-light mt-4 mb-4">
+              {language === "al" ? "Menujtë Tona" : "Our Menus"}
+            </h1>
+            <div className="w-16 h-px bg-gold mx-auto mb-6" />
+            <p className="text-white/50 text-lg max-w-2xl mx-auto">
+              {language === "al"
+                ? "Zgjidhni menunë që i përshtatet ngjarjes suaj të veçantë."
+                : "Choose the menu that suits your special event."}
+            </p>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Menu list */}
+      <section className="section-padding">
+        <div className="max-w-4xl mx-auto px-6 lg:px-8">
+          {allMenus.map((menu, i) => (
+            <motion.div
+              key={i}
+              id={`menu-${i}`}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true, margin: "-80px" }}
+            >
+              {/* Menu heading row */}
+              <div className="flex items-end gap-6 mb-10">
+                <span className="text-8xl md:text-9xl font-display font-light text-gold/15 leading-none select-none">
+                  {i + 1}
+                </span>
+                <div className="pb-2">
+                  <p className="text-xs tracking-[5px] uppercase text-gold mb-1">Nobel Venues</p>
+                  <h2 className="text-3xl md:text-4xl font-display font-light text-charcoal">{menu.name}</h2>
+                  <div className="w-12 h-px bg-gold mt-3" />
+                </div>
+              </div>
+
+              {/* Menu items */}
+              <div className="ml-0 md:ml-20 mb-6 space-y-4">
+                {menu.items.map((item, j) => (
+                  <div key={j} className="border-b border-gold/8 pb-4 last:border-0">
+                    <div className="flex items-baseline gap-3">
+                      <span className="text-gold font-display text-lg w-7 flex-shrink-0">{item.num}.</span>
+                      <span className="text-charcoal font-medium">{item.text}</span>
+                    </div>
+                    {item.sub && (
+                      <ul className="ml-10 mt-2 space-y-1.5">
+                        {item.sub.map((s, k) => (
+                          <li key={k} className="flex items-center gap-3 text-sm text-warm-gray italic">
+                            <div className="w-1.5 h-1.5 border border-gold/40 rotate-45 flex-shrink-0" />
+                            {s}
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
+                ))}
+              </div>
+
+              {i < allMenus.length - 1 && (
+                <div className="my-16">
+                  <OrnamentDivider />
+                </div>
+              )}
+            </motion.div>
+          ))}
+        </div>
+      </section>
+    </div>
+  )
+}
+
 /* ═══════════════════════════════════════════════════
    CONTACT PAGE
    ═══════════════════════════════════════════════════ */
@@ -1097,8 +1245,8 @@ function ContactPage({ language, setCurrentPage }) {
                       <FiUsers className="w-16 h-16 text-gold/30" />
                     ) : (
                       <img
-                        src="/manager.jpg"
-                        alt="Manager"
+                        src="/vali.jpeg"
+                        alt="Valmir Sinani"
                         className="w-full h-full object-cover"
                         onError={() => setImgError(true)}
                       />
@@ -2032,6 +2180,8 @@ function Layout() {
       <main>
         {currentPage === "home" ? (
           <Home language={language} setCurrentPage={setCurrentPage} />
+        ) : currentPage === "menus" ? (
+          <MenusPage language={language} setCurrentPage={setCurrentPage} />
         ) : currentPage === "contact" ? (
           <ContactPage language={language} setCurrentPage={setCurrentPage} />
         ) : currentPage === "salla1" ? (
