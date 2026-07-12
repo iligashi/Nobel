@@ -29,10 +29,9 @@ import {
   FiArrowLeft,
 } from "react-icons/fi"
 
-import hallImage1 from "./img/sall1.jpg"
-import hallImage2 from "./img/hall2.jpg"
-import hallImage3 from "./img/hall3.jpg"
-import heroVideo from "./img/open.mp4"
+const hallImage1 = "/Salla1/Salla1thumbnale.jpg"
+const hallImage2 = "/Sall2/Salla2Thumbnale.jpg"
+const hallImage3 = "/Salla3/Salla3thumbnale.jpg"
 
 /* ═══════════════════════════════════════════════════
    TRANSLATIONS — All content preserved exactly
@@ -669,8 +668,16 @@ function Navbar({ language, setLanguage, currentPage, setCurrentPage }) {
 
 function VideoHero({ language }) {
   const [isPlaying, setIsPlaying] = useState(true)
+  const [isMobile, setIsMobile] = useState(() => window.innerWidth < 768)
   const videoRef = useRef(null)
   const t = translations[language]
+
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 767px)")
+    const handler = (e) => setIsMobile(e.matches)
+    mq.addEventListener("change", handler)
+    return () => mq.removeEventListener("change", handler)
+  }, [])
 
   const toggleVideo = () => {
     if (videoRef.current) {
@@ -682,18 +689,26 @@ function VideoHero({ language }) {
 
   return (
     <section id="home" className="relative h-screen flex items-center justify-center overflow-hidden">
-      {/* Video Background */}
+      {/* Background — video on mobile, image on desktop */}
       <div className="absolute inset-0">
-        <video
-          ref={videoRef}
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="w-full h-full object-cover"
-        >
-          <source src={heroVideo} type="video/mp4" />
-        </video>
+        {isMobile ? (
+          <video
+            ref={videoRef}
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="w-full h-full object-cover"
+          >
+            <source src="/opening.mp4" type="video/mp4" />
+          </video>
+        ) : (
+          <img
+            src="/openingimg.jpg"
+            alt="Nobel Venues"
+            className="w-full h-full object-cover"
+          />
+        )}
         <div className="absolute inset-0 bg-black/50" />
       </div>
 
@@ -748,10 +763,12 @@ function VideoHero({ language }) {
             <FiChevronRight className="w-4 h-4" />
           </a>
 
-          <button onClick={toggleVideo} className="btn-classic-light">
-            {isPlaying ? <FiPause className="w-4 h-4" /> : <FiPlay className="w-4 h-4" />}
-            <span>{t.watchVideo}</span>
-          </button>
+          {isMobile && (
+            <button onClick={toggleVideo} className="btn-classic-light">
+              {isPlaying ? <FiPause className="w-4 h-4" /> : <FiPlay className="w-4 h-4" />}
+              <span>{t.watchVideo}</span>
+            </button>
+          )}
         </motion.div>
       </div>
 
