@@ -322,7 +322,7 @@ function ContactModal({ isOpen, onClose, language }) {
   const handleSubmit = (e) => {
     e.preventDefault()
     const whatsappMessage = `Përshëndetje! Dua të kontaktoj për shërbimet tuaja.%0A%0AEmri: ${formData.fullName}%0AEmail: ${formData.email}%0ATelefoni: ${formData.phone}%0AMesazhi: ${formData.message}`
-    window.open(`https://wa.me/355123456789?text=${whatsappMessage}`, "_blank")
+    window.open(`https://wa.me/38349482444?text=${whatsappMessage}`, "_blank")
     onClose()
   }
 
@@ -406,7 +406,7 @@ function BookingModal({ isOpen, onClose, language }) {
   const handleSubmit = (e) => {
     e.preventDefault()
     const whatsappMessage = `Përshëndetje! Dua të rezervoj një vend për ngjarjen time.%0A%0AEmri: ${formData.fullName}%0AEmail: ${formData.email}%0ATelefoni: ${formData.phone}%0AData e Ngjarjes: ${formData.eventDate}%0ALloji i Ngjarjes: ${formData.eventType}%0ANumri i Mysafirëve: ${formData.guestCount}%0AMesazhi: ${formData.message}`
-    window.open(`https://wa.me/355123456789?text=${whatsappMessage}`, "_blank")
+    window.open(`https://wa.me/38349482444?text=${whatsappMessage}`, "_blank")
     onClose()
   }
 
@@ -509,11 +509,11 @@ function Navbar({ language, setLanguage, currentPage, setCurrentPage }) {
 
   const navItems = [
     { name: t.home, action: () => { setCurrentPage("home"); window.scrollTo({ top: 0, behavior: "smooth" }) } },
-    { name: t.salla1, action: () => { setCurrentPage("details"); window.scrollTo({ top: 0 }) } },
-    { name: t.salla2, action: () => { setCurrentPage("details"); window.scrollTo({ top: 0 }) } },
-    { name: t.salla3, action: () => { setCurrentPage("details"); window.scrollTo({ top: 0 }) } },
+    { name: t.salla1, action: () => { setCurrentPage("salla1"); window.scrollTo({ top: 0 }) } },
+    { name: t.salla2, action: () => { setCurrentPage("salla2"); window.scrollTo({ top: 0 }) } },
+    { name: t.salla3, action: () => { setCurrentPage("salla3"); window.scrollTo({ top: 0 }) } },
     { name: t.details, action: () => { setCurrentPage("details"); window.scrollTo({ top: 0 }) } },
-    { name: t.contact, onClick: () => setIsContactModalOpen(true) },
+    { name: t.contact, action: () => { setCurrentPage("contact"); window.scrollTo({ top: 0 }) } },
   ]
 
   return (
@@ -799,7 +799,59 @@ const venueImages = [hallImage1, hallImage2, hallImage3]
 const venueLabels = ["HALL ONE", "HALL TWO", "HALL THREE"]
 const venueCapacities = ["500", "350", "220"]
 
-function VenueShowcase({ id, index, title, description, language, setCurrentPage }) {
+const salla1Gallery = [
+  "/Salla1/Salla1thumbnale.jpg",
+  "/Salla1/MicrosoftTeams-video.mp4",
+  "/Salla1/MicrosoftTeams-video (2).mp4",
+  "/Salla1/MicrosoftTeams-video (4).mp4",
+]
+
+const salla2Gallery = [
+  "/Sall2/Salla2Thumbnale.jpg",
+  "/Sall2/Image (31).jpg",
+  "/Sall2/Image (32).jpg",
+  "/Sall2/Image (33).jpg",
+  "/Sall2/Image (34).jpg",
+  "/Sall2/Image (36).jpg",
+  "/Sall2/Image (37).jpg",
+]
+
+const salla3Gallery = [
+  "/Salla3/Salla3thumbnale.jpg",
+  "/Salla3/Image (2).jpg",
+  "/Salla3/Image (3).jpg",
+  "/Salla3/Image (4).jpg",
+  "/Salla3/Image (5).jpg",
+  "/Salla3/Image (6).jpg",
+  "/Salla3/Image (7).jpg",
+  "/Salla3/Image (8).jpg",
+  "/Salla3/Image (9).jpg",
+  "/Salla3/Image (10).jpg",
+  "/Salla3/Image (11).jpg",
+  "/Salla3/Image (12).jpg",
+  "/Salla3/Image (13).jpg",
+  "/Salla3/Image (14).jpg",
+  "/Salla3/Image (15).jpg",
+  "/Salla3/Image (16).jpg",
+  "/Salla3/Image (17).jpg",
+  "/Salla3/Image (18).jpg",
+  "/Salla3/Image (19).jpg",
+  "/Salla3/Image (20).jpg",
+  "/Salla3/Image (21).jpg",
+  "/Salla3/Image (22).jpg",
+  "/Salla3/Image (23).jpg",
+  "/Salla3/Image (24).jpg",
+  "/Salla3/Image (25).jpg",
+  "/Salla3/Image (26).jpg",
+  "/Salla3/Image (27).jpg",
+  "/Salla3/Image (28).jpg",
+  "/Salla3/Image (29).jpg",
+  "/Salla3/Image (30).jpg",
+]
+
+const sallaGalleries = [salla1Gallery, salla2Gallery, salla3Gallery]
+
+function VenueShowcase({ id, index, title, description, language, setCurrentPage, targetPage }) {
   const t = translations[language]
   const isReversed = index % 2 !== 0
   const image = venueImages[index]
@@ -859,7 +911,7 @@ function VenueShowcase({ id, index, title, description, language, setCurrentPage
 
             <button
               className="btn-classic"
-              onClick={() => { setCurrentPage("details"); window.scrollTo({ top: 0 }) }}
+              onClick={() => { setCurrentPage(targetPage || "details"); window.scrollTo({ top: 0 }) }}
             >
               {t.exploreVenue}
               <FiChevronRight className="w-4 h-4" />
@@ -868,6 +920,501 @@ function VenueShowcase({ id, index, title, description, language, setCurrentPage
         </div>
       </div>
     </section>
+  )
+}
+
+/* ═══════════════════════════════════════════════════
+   MENU DATA
+   ═══════════════════════════════════════════════════ */
+
+const sallaMenus = [
+  // Salla 1 — Menya 2, 3, 4
+  [
+    {
+      name: "Menya 1",
+      items: [
+        { num: "1", text: "Koktej në ambijent të hapur" },
+        { num: "2", text: "Paragjellë përsonale" },
+        { num: "3", text: "Sallatë e kombinuar përsonale" },
+        { num: "4", text: "Katër (4) lloj mishi gjithsej 600 gr për person", sub: ["4/1. Pleskavicë", "4/2. Mish pule", "4/3. Mish viçi", "4/4. Mish i zier dhe i fërguar"] },
+        { num: "5", text: "Pije joalkoolike qelqi pa kufij", sub: ["Pije të gazuara (coca-cola, fanta, shweps etj.)", "Lëngje fruktal (mollë, pjeshkë, vishnje etj.)"] },
+        { num: "6", text: "Deserti i tortës sipas marrëveshjes" },
+        { num: "7", text: "Birrë Peje & Llashko" },
+        { num: "8", text: "Verë e kuqe, Verë e bardhë, Vodka, Stock" },
+      ],
+    },
+    {
+      name: "Menya 2",
+      items: [
+        { num: "1", text: "Koktej në ambijent të hapur" },
+        { num: "2", text: "Paragjellë përsonale" },
+        { num: "3", text: "Sallatë e kombinuar përsonale" },
+        { num: "4", text: "Katër (4) lloj mishi gjithsej 600 gr për person", sub: ["4/1. Mish viçi", "4/2. Mish pule", "4/3. Ramstek"] },
+        { num: "5", text: "Pije joalkoolike qelqi pa kufij", sub: ["Pije të gazuara (coca-cola, fanta, shweps etj.)", "Lëngje fruktal (mollë, pjeshkë, vishnje etj.)"] },
+        { num: "6", text: "Deserti i tortës sipas marrëveshjes" },
+        { num: "7", text: "Birrë Peje & Llashko" },
+        { num: "8", text: "Verë e kuqe, Verë e bardhë" },
+        { num: "9", text: "Vodka, Stock" },
+        { num: "10", text: "Jogermeister" },
+      ],
+    },
+    {
+      name: "Menya 3",
+      items: [
+        { num: "1", text: "Koktej në ambijent të hapur" },
+        { num: "2", text: "Paragjellë përsonale" },
+        { num: "3", text: "Sallatë e kombinuar përsonale" },
+        { num: "4", text: "Dy (2) lloj mishi gjithsej 600 gr për person", sub: ["4/1. Mish pule", "4/2. Biftek"] },
+        { num: "5", text: "Pije joalkoolike qelqi pa kufij", sub: ["Pije të gazuara (coca-cola, fanta, shweps etj.)", "Lëngje fruktal (mollë, pjeshkë, vishnje etj.)"] },
+        { num: "6", text: "Deserti i tortës sipas marrëveshjes" },
+        { num: "7", text: "Birrë Peje, Llashko & Heineken" },
+        { num: "8", text: "Verë e kuqe, Verë e bardhë, Vodka, Stock" },
+        { num: "9", text: "Jack Daniels" },
+        { num: "10", text: "Jogermeister" },
+      ],
+    },
+  ],
+  // Salla 2 — Menya 1
+  [
+    {
+      name: "Menya 1",
+      items: [
+        { num: "1", text: "Koktej në ambijent të hapur" },
+        { num: "2", text: "Paragjellë përsonale" },
+        { num: "3", text: "Sallatë e kombinuar përsonale" },
+        { num: "4", text: "Katër (4) lloj mishi gjithsej 600 gr për person", sub: ["4/1. Pleskavicë", "4/2. Mish pule", "4/3. Vishlle viçi", "4/4. Mish i zier dhe i fërguar"] },
+        { num: "5", text: "Pije joalkoolike pa kufij", sub: ["Lëngje fruti (mollë, pjeshkë, vishnje etj.)", "Pije të gazuara (coca-cola, fanta, shweps etj.)"] },
+        { num: "6", text: "Deserti i tortës sipas marrëveshjes" },
+        { num: "7", text: "Verë e kuqe & Verë e bardhë" },
+        { num: "8", text: "Birrë Peje & Birrë Ilashko" },
+      ],
+    },
+  ],
+  // Salla 3 — kombinim i të gjitha
+  [
+    {
+      name: "Menya Kombinuar",
+      items: [
+        { num: "1", text: "Koktej në ambijent të hapur" },
+        { num: "2", text: "Paragjellë përsonale" },
+        { num: "3", text: "Sallatë e kombinuar përsonale" },
+        { num: "4", text: "Katër (4) lloj mishi gjithsej 600 gr për person", sub: ["4/1. Pleskavicë", "4/2. Mish pule", "4/3. Mish viçi / Ramstek", "4/4. Mish i zier dhe i fërguar"] },
+        { num: "5", text: "Pije joalkoolike qelqi pa kufij", sub: ["Pije të gazuara (coca-cola, fanta, shweps etj.)", "Lëngje fruktal (mollë, pjeshkë, vishnje etj.)"] },
+        { num: "6", text: "Deserti i tortës sipas marrëveshjes" },
+        { num: "7", text: "Birrë Peje, Llashko & Heineken" },
+        { num: "8", text: "Verë e kuqe, Verë e bardhë" },
+        { num: "9", text: "Vodka, Stock" },
+        { num: "10", text: "Jack Daniels" },
+        { num: "11", text: "Jogermeister" },
+      ],
+    },
+  ],
+]
+
+/* ═══════════════════════════════════════════════════
+   CONTACT PAGE
+   ═══════════════════════════════════════════════════ */
+
+function ContactPage({ language, setCurrentPage }) {
+  const t = translations[language]
+  const [imgError, setImgError] = useState(false)
+  const [formData, setFormData] = useState({
+    fullName: "",
+    email: "",
+    phone: "",
+    message: "",
+  })
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    const msg = `Përshëndetje! Dua të kontaktoj për shërbimet tuaja.%0A%0AEmri: ${formData.fullName}%0AEmail: ${formData.email}%0ATelefoni: ${formData.phone}%0AMesazhi: ${formData.message}`
+    window.open(`https://wa.me/38349482444?text=${msg}`, "_blank")
+  }
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value })
+  }
+
+  return (
+    <div className="min-h-screen bg-ivory pt-24">
+      {/* Header */}
+      <section className="py-20 bg-charcoal text-white">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <motion.button
+            onClick={() => { setCurrentPage("home"); window.scrollTo({ top: 0 }) }}
+            className="flex items-center gap-2 text-white/60 hover:text-gold transition-colors mb-12 text-sm tracking-widest uppercase"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+          >
+            <FiArrowLeft className="w-4 h-4" />
+            <span>{t.backToHome}</span>
+          </motion.button>
+
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="text-center"
+          >
+            <span className="label-elegant">
+              {language === "al" ? "NA KONTAKTONI" : "GET IN TOUCH"}
+            </span>
+            <h1 className="text-5xl md:text-6xl font-display font-light mt-4 mb-4">{t.contactUs}</h1>
+            <div className="w-16 h-px bg-gold mx-auto mb-6" />
+            <p className="text-white/50 text-lg max-w-2xl mx-auto">
+              {language === "al"
+                ? "Jemi këtu për t'ju ndihmuar të planifikoni ngjarjen tuaj të përsosur."
+                : "We're here to help you plan your perfect event."}
+            </p>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Manager + Form */}
+      <section className="section-padding">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
+
+            {/* Manager card */}
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+            >
+              <span className="label-elegant">
+                {language === "al" ? "MENAXHERI YNË" : "OUR MANAGER"}
+              </span>
+              <h2 className="text-3xl font-display font-light text-charcoal mt-4 mb-2">
+                {language === "al" ? "Na Kontaktoni Drejtpërdrejt" : "Reach Us Directly"}
+              </h2>
+              <div className="gold-separator" />
+
+              <div className="classic-card p-8 mt-8">
+                {/* Photo */}
+                <div className="flex flex-col items-center text-center mb-8">
+                  <div className="w-40 h-40 rounded-full overflow-hidden border-2 border-gold/30 mb-6 bg-cream flex items-center justify-center">
+                    {imgError ? (
+                      <FiUsers className="w-16 h-16 text-gold/30" />
+                    ) : (
+                      <img
+                        src="/manager.jpg"
+                        alt="Manager"
+                        className="w-full h-full object-cover"
+                        onError={() => setImgError(true)}
+                      />
+                    )}
+                  </div>
+                  <h3 className="text-xl font-display font-medium text-charcoal">
+                    Valmir Sinani
+                  </h3>
+                  <span className="text-xs tracking-widest uppercase text-gold mt-1">
+                    {language === "al" ? "Menaxher i Ngjarjeve" : "Event Manager"}
+                  </span>
+                </div>
+
+                {/* Contact details */}
+                <div className="space-y-3">
+                  {[
+                    { icon: FiPhone, label: language === "al" ? "Telefoni" : "Phone", value: "+383 49 482 444  ·  +383 44 482 444  ·  +383 45 888 010" },
+                    { icon: FiMail,  label: "Email",                                  value: "info@nobelvenues.com" },
+                    { icon: FiMapPin, label: language === "al" ? "Adresa" : "Address", value: "JW52+MH8, R102, Klinë e Mesme 13000", href: "https://maps.app.goo.gl/yTHGMX12KsKhhsXb8" },
+                  ].map(({ icon: Icon, label, value, href }) => (
+                    <div key={label} className="flex items-center gap-4 p-4 border border-gold/10 bg-cream-light">
+                      <div className="w-10 h-10 border border-gold/20 flex items-center justify-center flex-shrink-0">
+                        <Icon className="w-4 h-4 text-gold" />
+                      </div>
+                      <div>
+                        <span className="text-xs tracking-widest uppercase text-warm-gray">{label}</span>
+                        {href ? (
+                          <a href={href} target="_blank" rel="noopener noreferrer" className="block text-charcoal font-medium hover:text-gold transition-colors">{value}</a>
+                        ) : (
+                          <p className="text-charcoal font-medium">{value}</p>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Contact form */}
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+            >
+              <span className="label-elegant">{language === "al" ? "FORMULARI" : "FORM"}</span>
+              <h2 className="text-3xl font-display font-light text-charcoal mt-4 mb-2">{t.sendMessage}</h2>
+              <div className="gold-separator" />
+
+              <form onSubmit={handleSubmit} className="space-y-5 mt-8">
+                <div>
+                  <label className="form-label">{t.fullName}</label>
+                  <input type="text" name="fullName" value={formData.fullName} onChange={handleChange} required className="form-input" />
+                </div>
+                <div>
+                  <label className="form-label">{t.email}</label>
+                  <input type="email" name="email" value={formData.email} onChange={handleChange} required className="form-input" />
+                </div>
+                <div>
+                  <label className="form-label">{t.phone}</label>
+                  <input type="tel" name="phone" value={formData.phone} onChange={handleChange} required className="form-input" />
+                </div>
+                <div>
+                  <label className="form-label">{t.message}</label>
+                  <textarea name="message" value={formData.message} onChange={handleChange} rows={6} className="form-input resize-none" />
+                </div>
+                <button type="submit" className="btn-filled w-full py-4 flex items-center justify-center gap-2">
+                  <FiSend className="w-4 h-4" />
+                  <span>{t.sendMessage}</span>
+                </button>
+              </form>
+            </motion.div>
+
+          </div>
+        </div>
+      </section>
+    </div>
+  )
+}
+
+/* ═══════════════════════════════════════════════════
+   SALLA PAGE — Individual hall pages
+   ═══════════════════════════════════════════════════ */
+
+function SallaPage({ sallaIndex, language, setCurrentPage }) {
+  const t = translations[language]
+  const sallaDetails = [t.salla1Details, t.salla2Details, t.salla3Details][sallaIndex]
+  const gallery = sallaGalleries[sallaIndex]
+
+  const menus = sallaMenus[sallaIndex]
+
+  return (
+    <div className="min-h-screen bg-ivory pt-24">
+      {/* Header */}
+      <section className="py-20 bg-charcoal text-white">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <motion.button
+            onClick={() => { setCurrentPage("home"); window.scrollTo({ top: 0 }) }}
+            className="flex items-center gap-2 text-white/60 hover:text-gold transition-colors mb-12 text-sm tracking-widest uppercase"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+          >
+            <FiArrowLeft className="w-4 h-4" />
+            <span>{t.backToHome}</span>
+          </motion.button>
+
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="text-center"
+          >
+            <span className="label-elegant">{venueLabels[sallaIndex]}</span>
+            <h1 className="text-5xl md:text-6xl font-display font-light mt-4 mb-4">{sallaDetails.name}</h1>
+            <div className="w-16 h-px bg-gold mx-auto mb-6" />
+            <p className="text-white/50 text-lg max-w-2xl mx-auto">{sallaDetails.description}</p>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Details */}
+      <section className="section-padding">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+            <div className="img-zoom">
+              <div className="relative">
+                <img
+                  src={venueImages[sallaIndex]}
+                  alt={sallaDetails.name}
+                  loading="lazy"
+                  decoding="async"
+                  className="w-full h-[400px] lg:h-[500px] object-cover"
+                />
+                <div className="absolute inset-0 border border-gold/15 m-3 pointer-events-none" />
+              </div>
+            </div>
+
+            <div>
+              <span className="label-elegant">{venueLabels[sallaIndex]}</span>
+              <h2 className="text-3xl md:text-4xl font-display font-light text-charcoal mt-3 mb-2">
+                {sallaDetails.name}
+              </h2>
+              <div className="gold-separator" />
+              <p className="text-warm-gray leading-relaxed mb-6">{sallaDetails.description}</p>
+
+              <div className="flex items-center gap-3 mb-8 pb-8 border-b border-gold/10">
+                <FiUsers className="w-5 h-5 text-gold" />
+                <span className="text-charcoal font-medium">{sallaDetails.capacity}</span>
+              </div>
+
+              <div className="mb-8">
+                <h3 className="text-sm tracking-widest uppercase text-warm-gray mb-5 flex items-center gap-2">
+                  <FiCalendar className="w-4 h-4 text-gold" />
+                  {t.eventTypes}
+                </h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {sallaDetails.eventTypes.map((eventType, i) => (
+                    <div key={i} className="flex items-start gap-3 p-4 border border-gold/10 bg-cream-light">
+                      <eventType.icon className="w-4 h-4 text-gold mt-1 flex-shrink-0" />
+                      <div>
+                        <h4 className="text-sm font-medium text-charcoal">{eventType.name}</h4>
+                        <p className="text-xs text-warm-gray mt-1">{eventType.description}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <h3 className="text-sm tracking-widest uppercase text-warm-gray mb-4 flex items-center gap-2">
+                  <FiStar className="w-4 h-4 text-gold" />
+                  {t.amenities}
+                </h3>
+                <div className="flex flex-wrap gap-2">
+                  {sallaDetails.amenities.map((amenity, i) => (
+                    <span key={i} className="amenity-badge">{amenity}</span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Gallery */}
+      <section className="section-padding bg-cream">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <span className="label-elegant">{language === "al" ? "GALERIA" : "GALLERY"}</span>
+            <h2 className="text-4xl md:text-5xl font-display font-light text-charcoal mt-4">
+              {language === "al" ? "Fotografi" : "Photography"}
+            </h2>
+            <OrnamentDivider />
+          </motion.div>
+
+          {gallery.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {gallery.map((src, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  transition={{ duration: 0.6, delay: i * 0.05 }}
+                  viewport={{ once: true }}
+                  className="group relative overflow-hidden"
+                >
+                  {src.endsWith(".mp4") ? (
+                    <video
+                      src={src}
+                      controls
+                      playsInline
+                      preload="metadata"
+                      className="w-full h-72 object-cover"
+                    />
+                  ) : (
+                    <>
+                      <img
+                        src={src}
+                        alt={`${sallaDetails.name} ${i + 1}`}
+                        loading="lazy"
+                        decoding="async"
+                        className="w-full h-72 object-cover transition-transform duration-700 group-hover:scale-105"
+                      />
+                      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-500" />
+                    </>
+                  )}
+                </motion.div>
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-20 text-warm-gray">
+              <FiCamera className="w-12 h-12 mx-auto mb-4 text-gold/40" />
+              <p>{language === "al" ? "Fotografi së shpejti" : "Photos coming soon"}</p>
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* Menus */}
+      <section className="section-padding">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <span className="label-elegant">{language === "al" ? "USHQIMI" : "DINING"}</span>
+            <h2 className="text-4xl md:text-5xl font-display font-light text-charcoal mt-4">
+              {language === "al" ? "Menujtë Tona" : "Our Menus"}
+            </h2>
+            <OrnamentDivider />
+            <p className="text-warm-gray text-lg max-w-2xl mx-auto mt-6">
+              {language === "al"
+                ? "Ofrojmë menu të personalizuara për çdo ngjarje. Kontaktoni ekipin tonë për të krijuar menunë tuaj."
+                : "We offer customized menus for every event. Contact our team to create your perfect menu."}
+            </p>
+          </motion.div>
+
+          <div className={`grid gap-8 ${menus.length === 1 ? "grid-cols-1 max-w-xl mx-auto" : "grid-cols-1 md:grid-cols-3"}`}>
+            {menus.map((menu, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 25 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: i * 0.1 }}
+                viewport={{ once: true }}
+                className="classic-card gold-top-border overflow-hidden"
+              >
+                {/* Menu header */}
+                <div className="bg-charcoal px-8 py-6 text-center">
+                  <h3 className="text-xl font-display font-light text-white tracking-widest uppercase">{menu.name}</h3>
+                  <div className="w-10 h-px bg-gold mx-auto mt-3" />
+                </div>
+
+                {/* Menu items */}
+                <div className="p-8">
+                  <ol className="space-y-3">
+                    {menu.items.map((item, j) => (
+                      <li key={j}>
+                        <div className="flex items-baseline gap-2 text-sm text-charcoal font-medium">
+                          <span className="text-gold font-display flex-shrink-0">{item.num}.</span>
+                          <span>{item.text}</span>
+                        </div>
+                        {item.sub && (
+                          <ul className="mt-1.5 ml-5 space-y-1">
+                            {item.sub.map((s, k) => (
+                              <li key={k} className="flex items-center gap-2 text-xs text-warm-gray">
+                                <div className="w-1 h-1 bg-gold/50 rounded-full flex-shrink-0" />
+                                {s}
+                              </li>
+                            ))}
+                          </ul>
+                        )}
+                      </li>
+                    ))}
+                  </ol>
+
+                  <div className="mt-8 pt-6 border-t border-gold/10 text-center">
+                    <span className="text-xs tracking-widest uppercase text-gold">
+                      {language === "al" ? "Kontaktoni për çmim" : "Contact for pricing"}
+                    </span>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+    </div>
   )
 }
 
@@ -895,6 +1442,7 @@ function Home({ language, setCurrentPage }) {
         }
         language={language}
         setCurrentPage={setCurrentPage}
+        targetPage="salla1"
       />
 
       {/* Thin Gold Line Separator */}
@@ -912,6 +1460,7 @@ function Home({ language, setCurrentPage }) {
         }
         language={language}
         setCurrentPage={setCurrentPage}
+        targetPage="salla2"
       />
 
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
@@ -928,6 +1477,7 @@ function Home({ language, setCurrentPage }) {
         }
         language={language}
         setCurrentPage={setCurrentPage}
+        targetPage="salla3"
       />
 
       {/* ─── About Section ─── */}
@@ -1356,10 +1906,7 @@ function DetailsPage({ language, setCurrentPage }) {
                   decoding="async"
                   className="w-full h-72 object-cover transition-transform duration-700 group-hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all duration-500" />
-                <div className="absolute bottom-0 left-0 right-0 p-5 translate-y-full group-hover:translate-y-0 transition-transform duration-500">
-                  <p className="text-white text-sm font-display">{image.alt}</p>
-                </div>
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-500" />
               </motion.div>
             ))}
           </div>
@@ -1392,18 +1939,22 @@ function Footer({ language }) {
             <p className="text-white/40 leading-relaxed text-sm mb-8 max-w-sm">
               {t.nobelDesc}
             </p>
-            <div className="flex gap-3">
+            <div className="space-y-3">
               {[
-                { icon: FiPhone, label: "Phone" },
-                { icon: FiMail, label: "Email" },
-                { icon: FiMapPin, label: "Location" },
-              ].map(({ icon: Icon, label }) => (
-                <button
-                  key={label}
-                  className="w-10 h-10 border border-white/15 flex items-center justify-center hover:border-gold hover:text-gold transition-all"
-                >
-                  <Icon className="w-4 h-4" />
-                </button>
+                { icon: FiPhone,  text: "+383 49 482 444  ·  +383 44 482 444  ·  +383 45 888 010" },
+                { icon: FiMail,   text: "info@nobelvenues.com" },
+                { icon: FiMapPin, text: "JW52+MH8, R102, Klinë e Mesme 13000", href: "https://maps.app.goo.gl/yTHGMX12KsKhhsXb8" },
+              ].map(({ icon: Icon, text, href }) => (
+                <div key={text} className="flex items-center gap-3">
+                  <div className="w-8 h-8 border border-white/15 flex items-center justify-center flex-shrink-0">
+                    <Icon className="w-3.5 h-3.5 text-gold" />
+                  </div>
+                  {href ? (
+                    <a href={href} target="_blank" rel="noopener noreferrer" className="text-white/40 text-xs leading-relaxed hover:text-gold transition-colors">{text}</a>
+                  ) : (
+                    <span className="text-white/40 text-xs leading-relaxed">{text}</span>
+                  )}
+                </div>
               ))}
             </div>
           </div>
@@ -1481,6 +2032,14 @@ function Layout() {
       <main>
         {currentPage === "home" ? (
           <Home language={language} setCurrentPage={setCurrentPage} />
+        ) : currentPage === "contact" ? (
+          <ContactPage language={language} setCurrentPage={setCurrentPage} />
+        ) : currentPage === "salla1" ? (
+          <SallaPage sallaIndex={0} language={language} setCurrentPage={setCurrentPage} />
+        ) : currentPage === "salla2" ? (
+          <SallaPage sallaIndex={1} language={language} setCurrentPage={setCurrentPage} />
+        ) : currentPage === "salla3" ? (
+          <SallaPage sallaIndex={2} language={language} setCurrentPage={setCurrentPage} />
         ) : currentPage === "details" ? (
           <DetailsPage language={language} setCurrentPage={setCurrentPage} />
         ) : null}
