@@ -1,7 +1,7 @@
-"use client"
+﻿"use client"
 
 import "./App.css"
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 
 import {
@@ -15,8 +15,6 @@ import {
   FiGlobe,
   FiMenu,
   FiX,
-  FiPlay,
-  FiPause,
   FiSend,
   FiCamera,
   FiCoffee,
@@ -44,7 +42,8 @@ const translations = {
     salla2: "Salla 2",
     salla3: "Salla 3",
     contact: "Contact",
-    menus: "Menus",
+    menus: "Menu",
+    gallery: "Gallery",
     exploreVenue: "Explore Venues",
     scheduleTour: "Schedule a Tour",
     bookNow: "Book Now",
@@ -60,7 +59,7 @@ const translations = {
     contactUs: "Contact Us",
     sendMessage: "Send Message",
     nobelDesc:
-      "Nobel Venues represents the pinnacle of luxury event hosting, where timeless elegance meets modern sophistication. Our prestigious venues offer an unparalleled experience for life's most cherished moments.",
+      "Nobel represents the pinnacle of luxury event hosting, where timeless elegance meets modern sophistication. Our prestigious venues offer an unparalleled experience for life's most cherished moments.",
     heroTitle: "Elevate Your Events",
     heroSubtitle: "Where luxury meets perfection in every celebration",
     watchVideo: "Watch Our Story",
@@ -140,7 +139,7 @@ const translations = {
     },
     salla3Details: {
       name: "Salla 3 - Intimate Lounge",
-      capacity: "Up to 220 guests",
+      capacity: "Up to 180 guests",
       description: "Our most intimate hall, perfect for small events and family gatherings.",
       eventTypes: [
         { name: "Small Weddings", icon: FiHeart, description: "Intimate and family wedding ceremonies" },
@@ -173,6 +172,7 @@ const translations = {
     salla3: "Salla 3",
     contact: "Kontakti",
     menus: "Menujtë",
+    gallery: "Galeria",
     exploreVenue: "Eksploro Vendin",
     scheduleTour: "Planifiko një Vizitë",
     bookNow: "Rezervo Tani",
@@ -188,7 +188,7 @@ const translations = {
     contactUs: "Na Kontaktoni",
     sendMessage: "Dërgo Mesazh",
     nobelDesc:
-      "Nobel Venues përfaqëson kulmin e organizimit të ngjarjeve luksoze, ku eleganca e përjetshme takohet me sofistikimin modern. Vendet tona prestigjioze ofrojnë një përvojë të pakrahasueshme për momentet më të çmuara të jetës.",
+      "Nobel përfaqëson kulmin e organizimit të ngjarjeve luksoze, ku eleganca e përjetshme takohet me sofistikimin modern. Vendet tona prestigjioze ofrojnë një përvojë të pakrahasueshme për momentet më të çmuara të jetës.",
     heroTitle: "Ngrini Ngjarjet Tuaja",
     heroSubtitle: "Ku luksi takohet me përsosmërinë në çdo festim",
     watchVideo: "Shiko Historinë Tonë",
@@ -268,7 +268,7 @@ const translations = {
     },
     salla3Details: {
       name: "Salla 3 - Intimate Lounge",
-      capacity: "Deri në 220 mysafirë",
+      capacity: "Deri në 180 mysafirë",
       description: "Salla jonë më intime, perfekte për ngjarje të vogla dhe mbledhje familjare.",
       eventTypes: [
         { name: "Dasma të Vogla", icon: FiHeart, description: "Ceremoni intime dhe familjare" },
@@ -299,6 +299,35 @@ const translations = {
 /* ═══════════════════════════════════════════════════
    ORNAMENTAL DIVIDER
    ═══════════════════════════════════════════════════ */
+
+function AnimatedWords({ text, className = "", delay = 0 }) {
+  const words = text.split(" ")
+  return (
+    <span className={className}>
+      {words.map((word, i) => (
+        <motion.span
+          key={i}
+          className="inline-block mr-[0.3em]"
+          initial={{ opacity: 0, y: 18 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: delay + i * 0.08, ease: "easeOut" }}
+        >
+          {word}
+        </motion.span>
+      ))}
+    </span>
+  )
+}
+
+function DiagonalDivider() {
+  return (
+    <div className="relative h-14 overflow-hidden -mt-1" style={{ background: "#faf7f2" }}>
+      <svg viewBox="0 0 1440 56" preserveAspectRatio="none" className="absolute inset-0 w-full h-full">
+        <polygon points="0,0 1440,0 0,56" fill="#1c1c1c" />
+      </svg>
+    </div>
+  )
+}
 
 function OrnamentDivider({ className = "" }) {
   return (
@@ -510,10 +539,10 @@ function Navbar({ language, setLanguage, currentPage, setCurrentPage }) {
   }, [])
 
   const navItems = [
-    { name: t.home, action: () => { setCurrentPage("home"); window.scrollTo({ top: 0, behavior: "smooth" }) } },
     { name: t.salla1, action: () => { setCurrentPage("salla1"); window.scrollTo({ top: 0 }) } },
     { name: t.salla2, action: () => { setCurrentPage("salla2"); window.scrollTo({ top: 0 }) } },
-    { name: t.salla3, action: () => { setCurrentPage("salla3"); window.scrollTo({ top: 0 }) } },
+    { name: t.salla3,   action: () => { setCurrentPage("salla3");   window.scrollTo({ top: 0 }) } },
+    { name: t.gallery,  action: () => { setCurrentPage("gallery");  window.scrollTo({ top: 0 }) } },
     {
       name: t.menus,
       action: () => { setCurrentPage("menus"); window.scrollTo({ top: 0 }) },
@@ -529,13 +558,15 @@ function Navbar({ language, setLanguage, currentPage, setCurrentPage }) {
     { name: t.contact, action: () => { setCurrentPage("contact"); window.scrollTo({ top: 0 }) } },
   ]
 
+  const isDark = ["home","salla1","salla2","salla3"].includes(currentPage) && !isScrolled
+
   return (
     <>
       <motion.nav
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          isScrolled
-            ? "bg-ivory/95 backdrop-blur-sm shadow-soft border-b border-gold/10"
-            : "bg-transparent"
+          isDark
+            ? "bg-black/40 backdrop-blur-sm border-b border-white/10"
+            : "bg-ivory/95 backdrop-blur-sm shadow-soft border-b border-gold/10"
         }`}
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -546,20 +577,13 @@ function Navbar({ language, setLanguage, currentPage, setCurrentPage }) {
             {/* Logo */}
             <button
               onClick={() => { setCurrentPage("home"); window.scrollTo({ top: 0, behavior: "smooth" }) }}
-              className="flex items-center gap-3 cursor-pointer bg-transparent border-none"
+              className="flex items-center cursor-pointer bg-transparent border-none"
             >
-              <div className="flex flex-col items-start">
-                <h1 className={`text-2xl lg:text-3xl font-display font-light tracking-wide ${
-                  isScrolled ? "text-charcoal" : "text-white"
-                }`}>
-                  NOBEL
-                </h1>
-                <span className={`text-[10px] tracking-[4px] uppercase ${
-                  isScrolled ? "text-gold" : "text-gold-light"
-                }`}>
-                  VENUES
-                </span>
-              </div>
+              <img
+                src="/NobelLogo-removebg-preview.png"
+                alt="Nobel Hotel"
+                className="h-12 lg:h-14 w-auto object-contain"
+              />
             </button>
 
             {/* Desktop Navigation */}
@@ -569,7 +593,7 @@ function Navbar({ language, setLanguage, currentPage, setCurrentPage }) {
                   <div key={item.name} className="relative group">
                     <button
                       onClick={item.action}
-                      className={`nav-link flex items-center gap-1 ${!isScrolled ? "nav-link-light" : ""}`}
+                      className={`nav-link flex items-center gap-1 ${isDark ? "nav-link-light" : ""}`}
                     >
                       {item.name}
                       <FiChevronRight className="w-3 h-3 rotate-90 opacity-60" />
@@ -604,7 +628,7 @@ function Navbar({ language, setLanguage, currentPage, setCurrentPage }) {
                         }
                       })
                     }
-                    className={`nav-link ${!isScrolled ? "nav-link-light" : ""}`}
+                    className={`nav-link ${isDark ? "nav-link-light" : ""}`}
                   >
                     {item.name}
                   </button>
@@ -705,115 +729,96 @@ function Navbar({ language, setLanguage, currentPage, setCurrentPage }) {
    VIDEO HERO — Elegant, classic
    ═══════════════════════════════════════════════════ */
 
+const heroSliderImages = [hallImage1, hallImage2, hallImage3]
+
 function VideoHero({ language }) {
-  const [isPlaying, setIsPlaying] = useState(true)
-  const [isMobile, setIsMobile] = useState(() => window.innerWidth < 768)
-  const videoRef = useRef(null)
+  const [currentSlide, setCurrentSlide] = useState(0)
   const t = translations[language]
 
   useEffect(() => {
-    const mq = window.matchMedia("(max-width: 767px)")
-    const handler = (e) => setIsMobile(e.matches)
-    mq.addEventListener("change", handler)
-    return () => mq.removeEventListener("change", handler)
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % heroSliderImages.length)
+    }, 4000)
+    return () => clearInterval(interval)
   }, [])
 
-  const toggleVideo = () => {
-    if (videoRef.current) {
-      if (isPlaying) videoRef.current.pause()
-      else videoRef.current.play()
-      setIsPlaying(!isPlaying)
-    }
-  }
-
   return (
-    <section id="home" className="relative h-screen flex items-center justify-center overflow-hidden">
-      {/* Background — video on mobile, image on desktop */}
+    <section id="home" className="relative h-[100svh] min-h-[600px] flex items-center justify-center overflow-hidden">
+      {/* Background slider */}
       <div className="absolute inset-0">
-        {isMobile ? (
-          <video
-            ref={videoRef}
-            autoPlay
-            muted
-            loop
-            playsInline
-            className="w-full h-full object-cover"
-          >
-            <source src="/opening.mp4" type="video/mp4" />
-          </video>
-        ) : (
-          <img
-            src="/openingimg.jpg"
+        <AnimatePresence>
+          <motion.img
+            key={currentSlide}
+            src={heroSliderImages[currentSlide]}
             alt="Nobel Venues"
-            className="w-full h-full object-cover"
+            className="absolute inset-0 w-full h-full object-cover object-center"
+            initial={{ opacity: 0, scale: 1.04 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 1.2, ease: "easeInOut" }}
           />
-        )}
-        <div className="absolute inset-0 bg-black/50" />
+        </AnimatePresence>
+        <div className="absolute inset-0 bg-black/55" />
       </div>
 
       {/* Decorative Frame */}
-      <div className="absolute inset-8 md:inset-16 border border-white/10 pointer-events-none" />
+      <div className="absolute inset-4 sm:inset-8 md:inset-16 border border-white/10 pointer-events-none" />
 
       {/* Content */}
-      <div className="relative z-10 text-center text-white max-w-4xl mx-auto px-6">
+      <div className="relative z-10 text-center text-white w-full max-w-4xl mx-auto px-4 sm:px-6 flex flex-col items-center">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, delay: 0.3 }}
+          className="flex justify-center mb-4 sm:mb-6"
         >
-          <span className="inline-block text-[11px] tracking-[6px] uppercase text-gold-light mb-8">
-            Drenas, Kosova
-          </span>
+          <img
+            src="/NobelLogo-removebg-preview.png"
+            alt="Nobel Hotel"
+            className="h-32 sm:h-44 md:h-56 lg:h-64 w-auto object-contain max-w-[280px] sm:max-w-xs md:max-w-sm"
+          />
         </motion.div>
-
-        <motion.h1
-          className="text-5xl md:text-7xl lg:text-8xl font-display font-light mb-6 leading-tight"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.6 }}
-        >
-          Nobel Venues
-        </motion.h1>
 
         <motion.div
           initial={{ opacity: 0, scaleX: 0 }}
           animate={{ opacity: 1, scaleX: 1 }}
           transition={{ duration: 0.8, delay: 1 }}
-          className="w-20 h-px bg-gold mx-auto mb-8"
+          className="w-14 sm:w-20 h-px bg-gold mx-auto mb-5 sm:mb-8"
         />
 
-        <motion.p
-          className="text-lg md:text-xl text-white/70 font-light mb-12 max-w-2xl mx-auto leading-relaxed"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 1.2 }}
-        >
-          {t.heroSubtitle}
-        </motion.p>
+        <p className="text-sm sm:text-base md:text-xl text-white/70 font-light mb-8 sm:mb-12 max-w-xs sm:max-w-lg md:max-w-2xl mx-auto leading-relaxed px-2">
+          <AnimatedWords text={t.heroSubtitle} delay={1.2} />
+        </p>
 
         <motion.div
-          className="flex flex-col sm:flex-row items-center justify-center gap-4"
+          className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 w-full"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 1.5 }}
         >
-          <a href="#salla1" className="btn-classic-light">
+          <a href="#salla1" className="btn-classic-light text-xs sm:text-sm px-5 py-3 sm:px-8 sm:py-4">
             {t.exploreVenue}
             <FiChevronRight className="w-4 h-4" />
           </a>
-
-          {isMobile && (
-            <button onClick={toggleVideo} className="btn-classic-light">
-              {isPlaying ? <FiPause className="w-4 h-4" /> : <FiPlay className="w-4 h-4" />}
-              <span>{t.watchVideo}</span>
-            </button>
-          )}
         </motion.div>
+      </div>
+
+      {/* Slide dots */}
+      <div className="absolute bottom-16 sm:bottom-20 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+        {heroSliderImages.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => setCurrentSlide(i)}
+            className={`transition-all duration-300 rounded-full ${
+              i === currentSlide ? "w-6 h-2 bg-gold" : "w-2 h-2 bg-white/40 hover:bg-white/70"
+            }`}
+          />
+        ))}
       </div>
 
       {/* Scroll Indicator */}
       <motion.div
-        className="absolute bottom-10 left-1/2 -translate-x-1/2"
+        className="absolute bottom-8 left-1/2 -translate-x-1/2"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1, delay: 2.5 }}
@@ -860,32 +865,18 @@ const salla3Gallery = [
   "/Salla3/Image (2).jpg",
   "/Salla3/Image (3).jpg",
   "/Salla3/Image (4).jpg",
-  "/Salla3/Image (5).jpg",
-  "/Salla3/Image (6).jpg",
   "/Salla3/Image (7).jpg",
   "/Salla3/Image (8).jpg",
   "/Salla3/Image (9).jpg",
   "/Salla3/Image (10).jpg",
-  "/Salla3/Image (11).jpg",
-  "/Salla3/Image (12).jpg",
   "/Salla3/Image (13).jpg",
   "/Salla3/Image (14).jpg",
   "/Salla3/Image (15).jpg",
   "/Salla3/Image (16).jpg",
   "/Salla3/Image (17).jpg",
   "/Salla3/Image (18).jpg",
-  "/Salla3/Image (19).jpg",
   "/Salla3/Image (20).jpg",
   "/Salla3/Image (21).jpg",
-  "/Salla3/Image (22).jpg",
-  "/Salla3/Image (23).jpg",
-  "/Salla3/Image (24).jpg",
-  "/Salla3/Image (25).jpg",
-  "/Salla3/Image (26).jpg",
-  "/Salla3/Image (27).jpg",
-  "/Salla3/Image (28).jpg",
-  "/Salla3/Image (29).jpg",
-  "/Salla3/Image (30).jpg",
 ]
 
 const sallaGalleries = [salla1Gallery, salla2Gallery, salla3Gallery]
@@ -898,64 +889,68 @@ function VenueShowcase({ id, index, title, description, language, setCurrentPage
   const capacity = venueCapacities[index]
 
   return (
-    <section id={id} className="section-padding overflow-hidden">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <div className={`grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center ${isReversed ? "direction-rtl" : ""}`}>
+    <section id={id} className="py-16 md:py-24 overflow-hidden">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className={`flex flex-col ${isReversed ? "lg:flex-row-reverse" : "lg:flex-row"} items-center`}>
+
           {/* Image */}
           <motion.div
-            className={`img-zoom ${isReversed ? "lg:order-2" : ""}`}
-            initial={{ opacity: 0, x: isReversed ? 40 : -40 }}
+            className="w-full lg:w-[62%] flex-shrink-0"
+            initial={{ opacity: 0, x: isReversed ? 60 : -60 }}
             whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.9 }}
-            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 1 }}
+            viewport={{ once: true, margin: "-80px" }}
           >
-            <div className="relative">
+            <div className="relative overflow-hidden">
               <img
                 src={image}
                 alt={title}
                 loading="lazy"
                 decoding="async"
-                className="w-full h-[400px] md:h-[500px] lg:h-[600px] object-cover"
+                className="w-full h-[320px] md:h-[480px] lg:h-[560px] object-cover"
               />
-              <div className="absolute inset-0 border border-gold/20 m-4 pointer-events-none" />
+              <div className={`absolute inset-0 hidden lg:block bg-gradient-to-${isReversed ? "l" : "r"} from-transparent via-transparent to-ivory/30`} />
             </div>
           </motion.div>
 
-          {/* Text */}
+          {/* Overlapping content card */}
           <motion.div
-            className={`${isReversed ? "lg:order-1" : ""}`}
-            initial={{ opacity: 0, x: isReversed ? -40 : 40 }}
+            className={`relative z-10 w-full lg:w-[44%] flex-shrink-0 mt-6 lg:mt-0 ${isReversed ? "lg:-mr-14" : "lg:-ml-14"}`}
+            initial={{ opacity: 0, x: isReversed ? -60 : 60 }}
             whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.9, delay: 0.2 }}
-            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 1, delay: 0.25 }}
+            viewport={{ once: true, margin: "-80px" }}
           >
-            <span className="label-elegant">{label}</span>
-            <h2 className="text-4xl md:text-5xl font-display font-light text-charcoal mt-4 mb-2 leading-tight">
-              {title}
-            </h2>
-            <div className="gold-separator" />
-            <p className="text-warm-gray leading-relaxed text-lg mb-8">
-              {description}
-            </p>
+            <div className="bg-ivory border-l-4 border-gold shadow-2xl p-8 md:p-10">
+              <span className="label-elegant">{label}</span>
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-light text-charcoal mt-4 mb-2 leading-tight">
+                {title}
+              </h2>
+              <div className="gold-separator" />
+              <p className="text-warm-gray leading-relaxed text-base md:text-lg mb-8">
+                {description}
+              </p>
 
-            <div className="flex items-center gap-3 mb-10">
-              <div className="w-10 h-10 border border-gold/30 rounded-full flex items-center justify-center">
-                <FiUsers className="w-4 h-4 text-gold" />
+              <div className="flex items-center gap-3 mb-8">
+                <div className="w-10 h-10 border border-gold/30 rounded-full flex items-center justify-center">
+                  <FiUsers className="w-4 h-4 text-gold" />
+                </div>
+                <div>
+                  <span className="text-xs tracking-widest uppercase text-warm-gray">{t.capacity}</span>
+                  <p className="text-charcoal font-display text-xl">{capacity} {language === "al" ? "mysafirë" : "guests"}</p>
+                </div>
               </div>
-              <div>
-                <span className="text-xs tracking-widest uppercase text-warm-gray">{t.capacity}</span>
-                <p className="text-charcoal font-display text-xl">{capacity} {language === "al" ? "mysafirë" : "guests"}</p>
-              </div>
+
+              <button
+                className="btn-classic"
+                onClick={() => { setCurrentPage(targetPage || "details"); window.scrollTo({ top: 0 }) }}
+              >
+                {t.exploreVenue}
+                <FiChevronRight className="w-4 h-4" />
+              </button>
             </div>
-
-            <button
-              className="btn-classic"
-              onClick={() => { setCurrentPage(targetPage || "details"); window.scrollTo({ top: 0 }) }}
-            >
-              {t.exploreVenue}
-              <FiChevronRight className="w-4 h-4" />
-            </button>
           </motion.div>
+
         </div>
       </div>
     </section>
@@ -979,7 +974,7 @@ const sallaMenus = [
         { num: "5", text: "Pije joalkoolike qelqi pa kufij", sub: ["Pije të gazuara (coca-cola, fanta, shweps etj.)", "Lëngje fruktal (mollë, pjeshkë, vishnje etj.)"] },
         { num: "6", text: "Deserti i tortës sipas marrëveshjes" },
         { num: "7", text: "Birrë Peje & Llashko" },
-        { num: "8", text: "Verë e kuqe, Verë e bardhë, Vodka, Stock" },
+        { num: "8", text: "Verë e kuqe, Verë e bardhë" },
       ],
     },
     {
@@ -988,13 +983,13 @@ const sallaMenus = [
         { num: "1", text: "Koktej në ambijent të hapur" },
         { num: "2", text: "Paragjellë përsonale" },
         { num: "3", text: "Sallatë e kombinuar përsonale" },
-        { num: "4", text: "Katër (4) lloj mishi gjithsej 600 gr për person", sub: ["4/1. Mish viçi", "4/2. Mish pule", "4/3. Ramstek"] },
+        { num: "4", text: "Katër (4) lloj mishi gjithsej 600 gr për person", sub: ["4/1. Pleskavicë", "4/2. Mish pule", "4/3. Mish viçi", "4/4. Mish i zier dhe i fërguar"] },
         { num: "5", text: "Pije joalkoolike qelqi pa kufij", sub: ["Pije të gazuara (coca-cola, fanta, shweps etj.)", "Lëngje fruktal (mollë, pjeshkë, vishnje etj.)"] },
         { num: "6", text: "Deserti i tortës sipas marrëveshjes" },
         { num: "7", text: "Birrë Peje & Llashko" },
         { num: "8", text: "Verë e kuqe, Verë e bardhë" },
         { num: "9", text: "Vodka, Stock" },
-        { num: "10", text: "Jogermeister" },
+        
       ],
     },
     {
@@ -1003,13 +998,13 @@ const sallaMenus = [
         { num: "1", text: "Koktej në ambijent të hapur" },
         { num: "2", text: "Paragjellë përsonale" },
         { num: "3", text: "Sallatë e kombinuar përsonale" },
-        { num: "4", text: "Dy (2) lloj mishi gjithsej 600 gr për person", sub: ["4/1. Mish pule", "4/2. Biftek"] },
+        { num: "4", text: "Katër (4) lloj mishi gjithsej 600 gr për person", sub: ["4/1. Rollad Pule", "4/2. Mish pule", "4/3. Mish viçi", "4/4. Mish i zier dhe i fërguar"] },
         { num: "5", text: "Pije joalkoolike qelqi pa kufij", sub: ["Pije të gazuara (coca-cola, fanta, shweps etj.)", "Lëngje fruktal (mollë, pjeshkë, vishnje etj.)"] },
         { num: "6", text: "Deserti i tortës sipas marrëveshjes" },
         { num: "7", text: "Birrë Peje, Llashko & Heineken" },
         { num: "8", text: "Verë e kuqe, Verë e bardhë, Vodka, Stock" },
-        { num: "9", text: "Jack Daniels" },
-        { num: "10", text: "Jogermeister" },
+        { num: "9", text: "Redbull" },
+        
       ],
     },
   ],
@@ -1024,8 +1019,9 @@ const sallaMenus = [
         { num: "4", text: "Katër (4) lloj mishi gjithsej 600 gr për person", sub: ["4/1. Pleskavicë", "4/2. Mish pule", "4/3. Vishlle viçi", "4/4. Mish i zier dhe i fërguar"] },
         { num: "5", text: "Pije joalkoolike pa kufij", sub: ["Lëngje fruti (mollë, pjeshkë, vishnje etj.)", "Pije të gazuara (coca-cola, fanta, shweps etj.)"] },
         { num: "6", text: "Deserti i tortës sipas marrëveshjes" },
-        { num: "7", text: "Verë e kuqe & Verë e bardhë" },
         { num: "8", text: "Birrë Peje & Birrë Ilashko" },
+        { num: "7", text: "Verë e kuqe & Verë e bardhë" },
+        
       ],
     },
   ],
@@ -1050,6 +1046,193 @@ const sallaMenus = [
   ],
 ]
 
+/* ═══════════════════════════════════════════════════
+   GALLERY DATA & PAGE
+   ═══════════════════════════════════════════════════ */
+
+const galleryImages = [
+  { src: "/openingimg.jpg",               hall: "all",   label: "Nobel Venues" },
+  // Salla 1
+  { src: "/Salla1/Salla1thumbnale.jpg",   hall: "salla1", label: "Salla 1" },
+  // Salla 2
+  { src: "/Sall2/Salla2Thumbnale.jpg",    hall: "salla2", label: "Salla 2" },
+  { src: "/Sall2/Image (31).jpg",         hall: "salla2", label: "Salla 2" },
+  { src: "/Sall2/Image (32).jpg",         hall: "salla2", label: "Salla 2" },
+  { src: "/Sall2/Image (33).jpg",         hall: "salla2", label: "Salla 2" },
+  { src: "/Sall2/Image (34).jpg",         hall: "salla2", label: "Salla 2" },
+  { src: "/Sall2/Image (36).jpg",         hall: "salla2", label: "Salla 2" },
+  { src: "/Sall2/Image (37).jpg",         hall: "salla2", label: "Salla 2" },
+  // Salla 3
+  { src: "/Salla3/Salla3thumbnale.jpg",   hall: "salla3", label: "Salla 3" },
+  { src: "/Salla3/Image (2).jpg",         hall: "salla3", label: "Salla 3" },
+  { src: "/Salla3/Image (3).jpg",         hall: "salla3", label: "Salla 3" },
+  { src: "/Salla3/Image (4).jpg",         hall: "salla3", label: "Salla 3" },
+  { src: "/Salla3/Image (7).jpg",         hall: "salla3", label: "Salla 3" },
+  { src: "/Salla3/Image (8).jpg",         hall: "salla3", label: "Salla 3" },
+  { src: "/Salla3/Image (9).jpg",         hall: "salla3", label: "Salla 3" },
+  { src: "/Salla3/Image (10).jpg",        hall: "salla3", label: "Salla 3" },
+  { src: "/Salla3/Image (13).jpg",        hall: "salla3", label: "Salla 3" },
+  { src: "/Salla3/Image (14).jpg",        hall: "salla3", label: "Salla 3" },
+  { src: "/Salla3/Image (15).jpg",        hall: "salla3", label: "Salla 3" },
+  { src: "/Salla3/Image (16).jpg",        hall: "salla3", label: "Salla 3" },
+  { src: "/Salla3/Image (17).jpg",        hall: "salla3", label: "Salla 3" },
+  { src: "/Salla3/Image (18).jpg",        hall: "salla3", label: "Salla 3" },
+  { src: "/Salla3/Image (20).jpg",        hall: "salla3", label: "Salla 3" },
+  { src: "/Salla3/Image (21).jpg",        hall: "salla3", label: "Salla 3" },
+]
+
+function GalleryPage({ language, setCurrentPage }) {
+  const [activeFilter, setActiveFilter] = useState("all")
+  const [lightbox, setLightbox] = useState(null)
+
+  const filters = [
+    { key: "all",    label: language === "al" ? "Të Gjitha" : "All" },
+    { key: "salla1", label: "Salla 1" },
+    { key: "salla2", label: "Salla 2" },
+    { key: "salla3", label: "Salla 3" },
+  ]
+
+  const filtered = activeFilter === "all"
+    ? galleryImages
+    : galleryImages.filter(img => img.hall === activeFilter || img.hall === "all")
+
+  const openLightbox = (index) => setLightbox(index)
+  const closeLightbox = () => setLightbox(null)
+  const prev = () => setLightbox((lightbox - 1 + filtered.length) % filtered.length)
+  const next = () => setLightbox((lightbox + 1) % filtered.length)
+
+  useEffect(() => {
+    if (lightbox === null) return
+    const handler = (e) => {
+      if (e.key === "ArrowLeft")  prev()
+      if (e.key === "ArrowRight") next()
+      if (e.key === "Escape")     closeLightbox()
+    }
+    window.addEventListener("keydown", handler)
+    return () => window.removeEventListener("keydown", handler)
+  }, [lightbox])
+
+  return (
+    <div className="min-h-screen bg-ivory pt-28">
+      {/* Filters */}
+      <div className="sticky top-20 z-30 bg-ivory/95 backdrop-blur-sm border-b border-gold/10">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 py-5 flex items-center justify-center gap-2 flex-wrap">
+          {filters.map((f) => (
+            <button
+              key={f.key}
+              onClick={() => setActiveFilter(f.key)}
+              className={`px-6 py-2 text-xs tracking-[3px] uppercase transition-all duration-300 ${
+                activeFilter === f.key
+                  ? "bg-charcoal text-gold border border-charcoal"
+                  : "border border-gold/20 text-warm-gray hover:border-gold hover:text-charcoal"
+              }`}
+            >
+              {f.label}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Masonry Grid */}
+      <section className="section-padding">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="columns-1 sm:columns-2 lg:columns-3 gap-4">
+            <AnimatePresence>
+              {filtered.map((img, i) => (
+                <motion.div
+                  key={img.src}
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  transition={{ duration: 0.4, delay: i * 0.03 }}
+                  className="break-inside-avoid mb-4 group relative overflow-hidden cursor-pointer"
+                  onClick={() => openLightbox(i)}
+                >
+                  <img
+                    src={img.src}
+                    alt={img.label}
+                    loading="lazy"
+                    decoding="async"
+                    className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/50 transition-all duration-500" />
+                  <div className="absolute inset-0 border border-white/0 group-hover:border-gold/30 m-3 transition-all duration-500 pointer-events-none" />
+                  <div className="absolute bottom-0 left-0 right-0 p-5 translate-y-full group-hover:translate-y-0 transition-transform duration-500">
+                    <p className="text-gold text-[10px] tracking-[4px] uppercase">{img.label}</p>
+                    <p className="text-white text-xs mt-1 opacity-70">
+                      {language === "al" ? "Klikoni për të zmadhuar" : "Click to enlarge"}
+                    </p>
+                  </div>
+                </motion.div>
+              ))}
+            </AnimatePresence>
+          </div>
+        </div>
+      </section>
+
+      {/* Lightbox */}
+      <AnimatePresence>
+        {lightbox !== null && (
+          <motion.div
+            className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={closeLightbox}
+          >
+            {/* Close */}
+            <button
+              onClick={closeLightbox}
+              className="absolute top-6 right-6 text-white/60 hover:text-gold transition-colors z-10"
+            >
+              <FiX className="w-7 h-7" />
+            </button>
+
+            {/* Counter */}
+            <div className="absolute top-6 left-1/2 -translate-x-1/2 text-white/40 text-xs tracking-widest">
+              {lightbox + 1} / {filtered.length}
+            </div>
+
+            {/* Prev */}
+            <button
+              onClick={(e) => { e.stopPropagation(); prev() }}
+              className="absolute left-4 md:left-8 text-white/50 hover:text-gold transition-colors z-10"
+            >
+              <FiArrowLeft className="w-8 h-8" />
+            </button>
+
+            {/* Image */}
+            <motion.img
+              key={lightbox}
+              src={filtered[lightbox].src}
+              alt={filtered[lightbox].label}
+              initial={{ opacity: 0, scale: 0.96 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="max-h-[85vh] max-w-[85vw] object-contain"
+              onClick={(e) => e.stopPropagation()}
+            />
+
+            {/* Next */}
+            <button
+              onClick={(e) => { e.stopPropagation(); next() }}
+              className="absolute right-4 md:right-8 text-white/50 hover:text-gold transition-colors z-10"
+            >
+              <FiChevronRight className="w-8 h-8" />
+            </button>
+
+            {/* Label */}
+            <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-center">
+              <span className="text-gold text-[10px] tracking-[4px] uppercase">{filtered[lightbox].label}</span>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  )
+}
+
 const allMenus = [
   { name: "Menya 1", items: sallaMenus[1][0].items },
   { name: "Menya 2", items: sallaMenus[0][0].items },
@@ -1063,42 +1246,8 @@ const allMenus = [
    ═══════════════════════════════════════════════════ */
 
 function MenusPage({ language, setCurrentPage }) {
-  const t = translations[language]
-
   return (
-    <div className="min-h-screen bg-ivory pt-24">
-      {/* Header */}
-      <section className="py-20 bg-charcoal text-white">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <motion.button
-            onClick={() => { setCurrentPage("home"); window.scrollTo({ top: 0 }) }}
-            className="flex items-center gap-2 text-white/60 hover:text-gold transition-colors mb-12 text-sm tracking-widest uppercase"
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-          >
-            <FiArrowLeft className="w-4 h-4" />
-            <span>{t.backToHome}</span>
-          </motion.button>
-
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-center"
-          >
-            <span className="label-elegant">{language === "al" ? "ÇFARË OFROJMË" : "WHAT WE OFFER"}</span>
-            <h1 className="text-5xl md:text-6xl font-display font-light mt-4 mb-4">
-              {language === "al" ? "Menujtë Tona" : "Our Menus"}
-            </h1>
-            <div className="w-16 h-px bg-gold mx-auto mb-6" />
-            <p className="text-white/50 text-lg max-w-2xl mx-auto">
-              {language === "al"
-                ? "Zgjidhni menunë që i përshtatet ngjarjes suaj të veçantë."
-                : "Choose the menu that suits your special event."}
-            </p>
-          </motion.div>
-        </div>
-      </section>
+    <div className="min-h-screen bg-ivory pt-28">
 
       {/* Menu list */}
       <section className="section-padding">
@@ -1184,40 +1333,7 @@ function ContactPage({ language, setCurrentPage }) {
   }
 
   return (
-    <div className="min-h-screen bg-ivory pt-24">
-      {/* Header */}
-      <section className="py-20 bg-charcoal text-white">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <motion.button
-            onClick={() => { setCurrentPage("home"); window.scrollTo({ top: 0 }) }}
-            className="flex items-center gap-2 text-white/60 hover:text-gold transition-colors mb-12 text-sm tracking-widest uppercase"
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-          >
-            <FiArrowLeft className="w-4 h-4" />
-            <span>{t.backToHome}</span>
-          </motion.button>
-
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-center"
-          >
-            <span className="label-elegant">
-              {language === "al" ? "NA KONTAKTONI" : "GET IN TOUCH"}
-            </span>
-            <h1 className="text-5xl md:text-6xl font-display font-light mt-4 mb-4">{t.contactUs}</h1>
-            <div className="w-16 h-px bg-gold mx-auto mb-6" />
-            <p className="text-white/50 text-lg max-w-2xl mx-auto">
-              {language === "al"
-                ? "Jemi këtu për t'ju ndihmuar të planifikoni ngjarjen tuaj të përsosur."
-                : "We're here to help you plan your perfect event."}
-            </p>
-          </motion.div>
-        </div>
-      </section>
-
+    <div className="min-h-screen bg-ivory pt-28">
       {/* Manager + Form */}
       <section className="section-padding">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
@@ -1265,7 +1381,7 @@ function ContactPage({ language, setCurrentPage }) {
                   {[
                     { icon: FiPhone, label: language === "al" ? "Telefoni" : "Phone", value: "+383 49 482 444  ·  +383 44 482 444  ·  +383 45 888 010" },
                     { icon: FiMail,  label: "Email",                                  value: "info@nobelvenues.com" },
-                    { icon: FiMapPin, label: language === "al" ? "Adresa" : "Address", value: "JW52+MH8, R102, Klinë e Mesme 13000", href: "https://maps.app.goo.gl/yTHGMX12KsKhhsXb8" },
+                    { icon: FiMapPin, label: language === "al" ? "Adresa" : "Address", value: "Rruga Bejtë Rexhepi Drenas", href: "https://maps.app.goo.gl/yTHGMX12KsKhhsXb8" },
                   ].map(({ icon: Icon, label, value, href }) => (
                     <div key={label} className="flex items-center gap-4 p-4 border border-gold/10 bg-cream-light">
                       <div className="w-10 h-10 border border-gold/20 flex items-center justify-center flex-shrink-0">
@@ -1335,16 +1451,27 @@ function SallaPage({ sallaIndex, language, setCurrentPage }) {
   const sallaDetails = [t.salla1Details, t.salla2Details, t.salla3Details][sallaIndex]
   const gallery = sallaGalleries[sallaIndex]
 
-  const menus = sallaMenus[sallaIndex]
-
   return (
-    <div className="min-h-screen bg-ivory pt-24">
-      {/* Header */}
-      <section className="py-20 bg-charcoal text-white">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+    <div className="min-h-screen bg-ivory">
+      {/* Header with background image */}
+      <section className="relative overflow-hidden text-white h-[50vh] min-h-[320px] md:h-[60vh] md:min-h-[420px]">
+        {/* Background image */}
+        <div className="absolute inset-0">
+          <img
+            src={venueImages[sallaIndex]}
+            alt={sallaDetails.name}
+            className="w-full h-full object-cover object-center"
+          />
+          <div className="absolute inset-0 bg-black/55" />
+        </div>
+
+        {/* Decorative border */}
+        <div className="absolute inset-3 sm:inset-5 md:inset-8 border border-white/10 pointer-events-none" />
+
+        <div className="relative z-10 h-full flex flex-col justify-between max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-8 md:pt-32 md:pb-10">
           <motion.button
             onClick={() => { setCurrentPage("home"); window.scrollTo({ top: 0 }) }}
-            className="flex items-center gap-2 text-white/60 hover:text-gold transition-colors mb-12 text-sm tracking-widest uppercase"
+            className="flex items-center gap-2 text-white/60 hover:text-gold transition-colors text-xs sm:text-sm tracking-widest uppercase w-fit"
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
           >
@@ -1356,12 +1483,12 @@ function SallaPage({ sallaIndex, language, setCurrentPage }) {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-center"
+            className="text-center pb-2"
           >
             <span className="label-elegant">{venueLabels[sallaIndex]}</span>
-            <h1 className="text-5xl md:text-6xl font-display font-light mt-4 mb-4">{sallaDetails.name}</h1>
-            <div className="w-16 h-px bg-gold mx-auto mb-6" />
-            <p className="text-white/50 text-lg max-w-2xl mx-auto">{sallaDetails.description}</p>
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display font-light mt-3 mb-3 leading-tight">{sallaDetails.name}</h1>
+            <div className="w-12 md:w-16 h-px bg-gold mx-auto mb-4" />
+            <p className="text-white/60 text-sm sm:text-base md:text-lg max-w-2xl mx-auto px-4">{sallaDetails.description}</p>
           </motion.div>
         </div>
       </section>
@@ -1490,7 +1617,7 @@ function SallaPage({ sallaIndex, language, setCurrentPage }) {
         </div>
       </section>
 
-      {/* Menus */}
+      {/* Menus CTA */}
       <section className="section-padding">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <motion.div
@@ -1498,68 +1625,26 @@ function SallaPage({ sallaIndex, language, setCurrentPage }) {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="text-center mb-16"
+            className="text-center"
           >
             <span className="label-elegant">{language === "al" ? "USHQIMI" : "DINING"}</span>
             <h2 className="text-4xl md:text-5xl font-display font-light text-charcoal mt-4">
               {language === "al" ? "Menujtë Tona" : "Our Menus"}
             </h2>
             <OrnamentDivider />
-            <p className="text-warm-gray text-lg max-w-2xl mx-auto mt-6">
+            <p className="text-warm-gray text-lg max-w-2xl mx-auto mt-6 mb-10">
               {language === "al"
-                ? "Ofrojmë menu të personalizuara për çdo ngjarje. Kontaktoni ekipin tonë për të krijuar menunë tuaj."
-                : "We offer customized menus for every event. Contact our team to create your perfect menu."}
+                ? "Ofrojmë menu të personalizuara për çdo ngjarje. Shikoni të gjitha menujtë tona."
+                : "We offer customized menus for every event. View all our menus."}
             </p>
+            <button
+              className="btn-classic"
+              onClick={() => { setCurrentPage("menus"); window.scrollTo({ top: 0 }) }}
+            >
+              {language === "al" ? "Shiko Menujtë" : "View Menus"}
+              <FiChevronRight className="w-4 h-4" />
+            </button>
           </motion.div>
-
-          <div className={`grid gap-8 ${menus.length === 1 ? "grid-cols-1 max-w-xl mx-auto" : "grid-cols-1 md:grid-cols-3"}`}>
-            {menus.map((menu, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 25 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: i * 0.1 }}
-                viewport={{ once: true }}
-                className="classic-card gold-top-border overflow-hidden"
-              >
-                {/* Menu header */}
-                <div className="bg-charcoal px-8 py-6 text-center">
-                  <h3 className="text-xl font-display font-light text-white tracking-widest uppercase">{menu.name}</h3>
-                  <div className="w-10 h-px bg-gold mx-auto mt-3" />
-                </div>
-
-                {/* Menu items */}
-                <div className="p-8">
-                  <ol className="space-y-3">
-                    {menu.items.map((item, j) => (
-                      <li key={j}>
-                        <div className="flex items-baseline gap-2 text-sm text-charcoal font-medium">
-                          <span className="text-gold font-display flex-shrink-0">{item.num}.</span>
-                          <span>{item.text}</span>
-                        </div>
-                        {item.sub && (
-                          <ul className="mt-1.5 ml-5 space-y-1">
-                            {item.sub.map((s, k) => (
-                              <li key={k} className="flex items-center gap-2 text-xs text-warm-gray">
-                                <div className="w-1 h-1 bg-gold/50 rounded-full flex-shrink-0" />
-                                {s}
-                              </li>
-                            ))}
-                          </ul>
-                        )}
-                      </li>
-                    ))}
-                  </ol>
-
-                  <div className="mt-8 pt-6 border-t border-gold/10 text-center">
-                    <span className="text-xs tracking-widest uppercase text-gold">
-                      {language === "al" ? "Kontaktoni për çmim" : "Contact for pricing"}
-                    </span>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
         </div>
       </section>
     </div>
@@ -1671,6 +1756,8 @@ function Home({ language, setCurrentPage }) {
           </div>
         </div>
       </section>
+
+      <DiagonalDivider />
 
       {/* ─── Services Section ─── */}
       <section className="section-padding">
@@ -1803,7 +1890,7 @@ function Home({ language, setCurrentPage }) {
    DETAILS PAGE — Refined venue details
    ═══════════════════════════════════════════════════ */
 
-function DetailsPage({ language, setCurrentPage }) {
+function DetailsPage({ language, setCurrentPage, pageTitle }) {
   const t = translations[language]
 
   const venueDetailImages = [hallImage1, hallImage2, hallImage3]
@@ -1818,38 +1905,7 @@ function DetailsPage({ language, setCurrentPage }) {
   ]
 
   return (
-    <div className="min-h-screen bg-ivory pt-24">
-      {/* Header */}
-      <section className="py-20 bg-charcoal text-white">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <motion.button
-            onClick={() => setCurrentPage("home")}
-            className="flex items-center gap-2 text-white/60 hover:text-gold transition-colors mb-12 text-sm tracking-widest uppercase"
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-          >
-            <FiArrowLeft className="w-4 h-4" />
-            <span>{t.backToHome}</span>
-          </motion.button>
-
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-center"
-          >
-            <span className="label-elegant">{language === "al" ? "ZBULONI MË SHUMË" : "DISCOVER MORE"}</span>
-            <h1 className="text-5xl md:text-6xl font-display font-light mt-4 mb-4">{t.venueDetails}</h1>
-            <div className="w-16 h-px bg-gold mx-auto mb-6" />
-            <p className="text-white/50 text-lg max-w-2xl mx-auto">
-              {language === "al"
-                ? "Zbuloni të gjitha detajet e vendeve tona luksoze dhe shërbimet e specializuara"
-                : "Discover all the details of our luxury venues and specialized services"
-              }
-            </p>
-          </motion.div>
-        </div>
-      </section>
+    <div className="min-h-screen bg-ivory pt-28">
 
       {/* Venue Detail Cards */}
       <section className="section-padding">
@@ -2068,8 +2124,29 @@ function DetailsPage({ language, setCurrentPage }) {
    FOOTER — Classic, elegant
    ═══════════════════════════════════════════════════ */
 
-function Footer({ language }) {
+function Footer({ language, setCurrentPage }) {
   const t = translations[language]
+
+  const nav = (page) => { setCurrentPage(page); window.scrollTo({ top: 0 }) }
+
+  const quickLinks = [
+    { label: t.home,    page: "home"    },
+    { label: t.salla1,  page: "salla1"  },
+    { label: t.salla2,  page: "salla2"  },
+    { label: t.salla3,  page: "salla3"  },
+    { label: t.gallery, page: "gallery" },
+    { label: t.menus,   page: "menus"   },
+    { label: t.contact, page: "contact" },
+    { label: t.details, page: "details" },
+  ]
+
+  const contacts = [
+    { icon: FiPhone,  text: "+383 49 482 444",  href: "tel:+38349482444" },
+    { icon: FiPhone,  text: "+383 44 482 444",  href: "tel:+38344482444" },
+    { icon: FiPhone,  text: "+383 45 888 010",  href: "tel:+38345888010" },
+    { icon: FiMail,   text: "info@nobelvenues.com", href: "mailto:info@nobelvenues.com" },
+    { icon: FiMapPin, text: "Rruga Bejtë Rexhepi Drenas", href: "https://maps.app.goo.gl/yTHGMX12KsKhhsXb8" },
+  ]
 
   return (
     <footer className="bg-charcoal text-white">
@@ -2078,30 +2155,33 @@ function Footer({ language }) {
 
       <div className="max-w-7xl mx-auto px-6 lg:px-8 py-20">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-12 mb-16">
+
           {/* Logo & Description */}
           <div className="md:col-span-5">
-            <div className="mb-6">
-              <h3 className="text-3xl font-display font-light tracking-wide">NOBEL</h3>
-              <span className="text-[10px] tracking-[4px] uppercase text-gold">VENUES</span>
-            </div>
+            <button onClick={() => nav("home")} className="block mb-6 bg-transparent border-none p-0">
+              <img
+                src="/NobelLogo-removebg-preview.png"
+                alt="Nobel Hotel"
+                className="h-16 w-auto object-contain brightness-0 invert"
+              />
+            </button>
             <p className="text-white/40 leading-relaxed text-sm mb-8 max-w-sm">
               {t.nobelDesc}
             </p>
             <div className="space-y-3">
-              {[
-                { icon: FiPhone,  text: "+383 49 482 444  ·  +383 44 482 444  ·  +383 45 888 010" },
-                { icon: FiMail,   text: "info@nobelvenues.com" },
-                { icon: FiMapPin, text: "JW52+MH8, R102, Klinë e Mesme 13000", href: "https://maps.app.goo.gl/yTHGMX12KsKhhsXb8" },
-              ].map(({ icon: Icon, text, href }) => (
+              {contacts.map(({ icon: Icon, text, href }) => (
                 <div key={text} className="flex items-center gap-3">
                   <div className="w-8 h-8 border border-white/15 flex items-center justify-center flex-shrink-0">
                     <Icon className="w-3.5 h-3.5 text-gold" />
                   </div>
-                  {href ? (
-                    <a href={href} target="_blank" rel="noopener noreferrer" className="text-white/40 text-xs leading-relaxed hover:text-gold transition-colors">{text}</a>
-                  ) : (
-                    <span className="text-white/40 text-xs leading-relaxed">{text}</span>
-                  )}
+                  <a
+                    href={href}
+                    target={href.startsWith("http") ? "_blank" : undefined}
+                    rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
+                    className="text-white/40 text-xs leading-relaxed hover:text-gold transition-colors"
+                  >
+                    {text}
+                  </a>
                 </div>
               ))}
             </div>
@@ -2113,10 +2193,13 @@ function Footer({ language }) {
               {language === "al" ? "Lidhje të Shpejta" : "Quick Links"}
             </h4>
             <ul className="space-y-3">
-              {[t.home, t.salla1, t.salla2, t.salla3, t.contact].map((link, i) => (
-                <li key={i}>
-                  <button className="text-white/40 hover:text-gold transition-colors text-sm">
-                    {link}
+              {quickLinks.map(({ label, page }) => (
+                <li key={page}>
+                  <button
+                    onClick={() => nav(page)}
+                    className="text-white/40 hover:text-gold transition-colors text-sm text-left"
+                  >
+                    {label}
                   </button>
                 </li>
               ))}
@@ -2129,9 +2212,10 @@ function Footer({ language }) {
               {language === "al" ? "Shërbimet" : "Services"}
             </h4>
             <ul className="space-y-3">
-              {t.services.slice(0, 4).map((service, i) => (
-                <li key={i}>
-                  <span className="text-white/40 text-sm">{service}</span>
+              {t.generalServices.map((service) => (
+                <li key={service.name} className="flex items-center gap-2">
+                  <service.icon className="w-3.5 h-3.5 text-gold flex-shrink-0" />
+                  <span className="text-white/40 text-sm">{service.name}</span>
                 </li>
               ))}
             </ul>
@@ -2180,6 +2264,8 @@ function Layout() {
       <main>
         {currentPage === "home" ? (
           <Home language={language} setCurrentPage={setCurrentPage} />
+        ) : currentPage === "gallery" ? (
+          <GalleryPage language={language} setCurrentPage={setCurrentPage} />
         ) : currentPage === "menus" ? (
           <MenusPage language={language} setCurrentPage={setCurrentPage} />
         ) : currentPage === "contact" ? (
@@ -2195,7 +2281,7 @@ function Layout() {
         ) : null}
       </main>
 
-      <Footer language={language} />
+      <Footer language={language} setCurrentPage={setCurrentPage} />
     </div>
   )
 }
