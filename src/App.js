@@ -1101,7 +1101,6 @@ function GalleryPage({ language, setCurrentPage }) {
   const prev = () => setLightbox((lightbox - 1 + filtered.length) % filtered.length)
   const next = () => setLightbox((lightbox + 1) % filtered.length)
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     if (lightbox === null) return
     const handler = (e) => {
@@ -1111,7 +1110,7 @@ function GalleryPage({ language, setCurrentPage }) {
     }
     window.addEventListener("keydown", handler)
     return () => window.removeEventListener("keydown", handler)
-  }, [lightbox])
+  }, [lightbox]) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <div className="min-h-screen bg-ivory pt-28">
