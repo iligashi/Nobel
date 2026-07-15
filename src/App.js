@@ -30,6 +30,7 @@ import {
 const hallImage1 = "/Salla1/Salla1thumbnale.jpg"
 const hallImage2 = "/Sall2/Salla2Thumbnale.jpg"
 const hallImage3 = "/Salla3/Salla3thumbnale.jpg"
+const salla3Exterior = "/Salla3/Salla3Jasht.jpg"
 
 /* ═══════════════════════════════════════════════════
    TRANSLATIONS — All content preserved exactly
@@ -729,7 +730,7 @@ function Navbar({ language, setLanguage, currentPage, setCurrentPage }) {
    VIDEO HERO — Elegant, classic
    ═══════════════════════════════════════════════════ */
 
-const heroSliderImages = [hallImage1, hallImage2, hallImage3]
+const heroSliderImages = [hallImage1, hallImage2, salla3Exterior]
 
 function VideoHero({ language }) {
   const [currentSlide, setCurrentSlide] = useState(0)
@@ -875,7 +876,6 @@ const salla3Gallery = [
   "/Salla3/Image (16).jpg",
   "/Salla3/Image (17).jpg",
   "/Salla3/Image (18).jpg",
-  "/Salla3/Image (20).jpg",
   "/Salla3/Image (21).jpg",
 ]
 
@@ -1051,7 +1051,6 @@ const sallaMenus = [
    ═══════════════════════════════════════════════════ */
 
 const galleryImages = [
-  { src: "/openingimg.jpg",               hall: "all",   label: "Nobel Venues" },
   // Salla 1
   { src: "/Salla1/Salla1thumbnale.jpg",   hall: "salla1", label: "Salla 1" },
   // Salla 2
@@ -1077,7 +1076,6 @@ const galleryImages = [
   { src: "/Salla3/Image (16).jpg",        hall: "salla3", label: "Salla 3" },
   { src: "/Salla3/Image (17).jpg",        hall: "salla3", label: "Salla 3" },
   { src: "/Salla3/Image (18).jpg",        hall: "salla3", label: "Salla 3" },
-  { src: "/Salla3/Image (20).jpg",        hall: "salla3", label: "Salla 3" },
   { src: "/Salla3/Image (21).jpg",        hall: "salla3", label: "Salla 3" },
 ]
 
@@ -1094,7 +1092,7 @@ function GalleryPage({ language, setCurrentPage }) {
 
   const filtered = activeFilter === "all"
     ? galleryImages
-    : galleryImages.filter(img => img.hall === activeFilter || img.hall === "all")
+    : galleryImages.filter(img => img.hall === activeFilter)
 
   const openLightbox = (index) => setLightbox(index)
   const closeLightbox = () => setLightbox(null)
@@ -1450,6 +1448,7 @@ function SallaPage({ sallaIndex, language, setCurrentPage }) {
   const t = translations[language]
   const sallaDetails = [t.salla1Details, t.salla2Details, t.salla3Details][sallaIndex]
   const gallery = sallaGalleries[sallaIndex]
+  const mainImage = [hallImage1, hallImage2, salla3Exterior][sallaIndex]
 
   return (
     <div className="min-h-screen bg-ivory">
@@ -1458,7 +1457,7 @@ function SallaPage({ sallaIndex, language, setCurrentPage }) {
         {/* Background image */}
         <div className="absolute inset-0">
           <img
-            src={venueImages[sallaIndex]}
+            src={mainImage}
             alt={sallaDetails.name}
             className="w-full h-full object-cover object-center"
           />
@@ -1500,7 +1499,7 @@ function SallaPage({ sallaIndex, language, setCurrentPage }) {
             <div className="img-zoom">
               <div className="relative">
                 <img
-                  src={venueImages[sallaIndex]}
+                  src={mainImage}
                   alt={sallaDetails.name}
                   loading="lazy"
                   decoding="async"
