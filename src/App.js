@@ -172,7 +172,7 @@ const translations = {
     salla2: "Salla 2",
     salla3: "Salla 3",
     contact: "Kontakti",
-    menus: "Menujtë",
+    menus: "Menutë",
     gallery: "Galeria",
     exploreVenue: "Eksploro Vendin",
     scheduleTour: "Planifiko një Vizitë",
@@ -184,7 +184,7 @@ const translations = {
     aboutNobel: "Rreth Nobel Venues",
     ourServices: "Shërbimet tona Premium",
     advantagesTitle: "Pse të Zgjedhësh Nobel",
-    parking: "Parkimi & Vendndodhja",
+    parking: "Parkimi & Vendndodhja", 
     reviews: "Vlerësimet e Klientëve",
     contactUs: "Na Kontaktoni",
     sendMessage: "Dërgo Mesazh",
@@ -245,10 +245,10 @@ const translations = {
     pastEvents: "Ngjarje të Kaluara",
     salla1Details: {
       name: "Salla 1 - Grand Ballroom",
-      capacity: "Deri në 500 mysafirë",
+      capacity: "Deri në 700 mysafirë",
       description: "Salla jonë më e madhe dhe më elegante, e dizajnuar për ngjarje të mëdha dhe të rëndësishme.",
       eventTypes: [
-        { name: "Dasma të Mëdha", icon: FiHeart, description: "Ceremoni dhe festa dasme për deri në 500 mysafirë" },
+        { name: "Dasma të Mëdha", icon: FiHeart, description: "Ceremoni dhe festa dasme për deri në 700 mysafirë" },
         { name: "Konferenca", icon: FiMic, description: "Konferenca korporative dhe seminare profesionale" },
         { name: "Ngjarje Korporative", icon: FiBriefcase, description: "Mbledhje të mëdha dhe prezantime korporative" },
         { name: "Gala & Awards", icon: FiStar, description: "Ceremoni zyrtare dhe ngjarje të veçanta" },
@@ -257,10 +257,10 @@ const translations = {
     },
     salla2Details: {
       name: "Salla 2 - Crystal Hall",
-      capacity: "Deri në 350 mysafirë",
+      capacity: "Deri në 370 mysafirë",
       description: "Një hapësirë moderne dhe fleksibile, ideale për ngjarje të mesme dhe prezantime.",
       eventTypes: [
-        { name: "Dasma të Mesme", icon: FiHeart, description: "Ceremoni intime për deri në 350 mysafirë" },
+        { name: "Dasma të Mesme", icon: FiHeart, description: "Ceremoni intime për deri në 370 mysafirë" },
         { name: "Festa Private", icon: FiGift, description: "Festa ditëlindjesh dhe përvjetorësh" },
         { name: "Prezantime", icon: FiMic, description: "Prezantime produktesh dhe lansime" },
         { name: "Seminare", icon: FiBriefcase, description: "Trajnime dhe workshop-e profesionale" },
@@ -962,7 +962,7 @@ function VenueShowcase({ id, index, title, description, language, setCurrentPage
    ═══════════════════════════════════════════════════ */
 
 const sallaMenus = [
-  // Salla 1 — Menya 2, 3, 4
+  
   [
     {
       name: "Menya 1",
@@ -970,7 +970,7 @@ const sallaMenus = [
         { num: "1", text: "Koktej në ambijent të hapur" },
         { num: "2", text: "Paragjellë përsonale" },
         { num: "3", text: "Sallatë e kombinuar përsonale" },
-        { num: "4", text: "Katër (4) lloj mishi gjithsej 600 gr për person", sub: ["4/1. Pleskavicë", "4/2. Mish pule", "4/3. Mish viçi", "4/4. Mish i zier dhe i fërguar"] },
+        { num: "4", text: "Katër (4) lloj mishi mishi sherbehen me garnitur", sub: ["4/1. Pleskavicë", "4/2. Mish pule", "4/3. Vishlle viçi", "4/4. Mish i zier dhe i fërguar"] },
         { num: "5", text: "Pije joalkoolike qelqi pa kufij", sub: ["Pije të gazuara (coca-cola, fanta, shweps etj.)", "Lëngje fruktal (mollë, pjeshkë, vishnje etj.)"] },
         { num: "6", text: "Deserti i tortës sipas marrëveshjes" },
         { num: "7", text: "Birrë Peje & Llashko" },
@@ -983,7 +983,7 @@ const sallaMenus = [
         { num: "1", text: "Koktej në ambijent të hapur" },
         { num: "2", text: "Paragjellë përsonale" },
         { num: "3", text: "Sallatë e kombinuar përsonale" },
-        { num: "4", text: "Katër (4) lloj mishi gjithsej 600 gr për person", sub: ["4/1. Pleskavicë", "4/2. Mish pule", "4/3. Mish viçi", "4/4. Mish i zier dhe i fërguar"] },
+        { num: "4", text: "Katër (4) lloj mishi mishi sherbehen me garnitur", sub: ["4/1. Pleskavicë", "4/2. Mish pule", "4/3. Mish viçi", "4/4. Mish i zier dhe i fërguar"] },
         { num: "5", text: "Pije joalkoolike qelqi pa kufij", sub: ["Pije të gazuara (coca-cola, fanta, shweps etj.)", "Lëngje fruktal (mollë, pjeshkë, vishnje etj.)"] },
         { num: "6", text: "Deserti i tortës sipas marrëveshjes" },
         { num: "7", text: "Birrë Peje & Llashko" },
@@ -998,7 +998,7 @@ const sallaMenus = [
         { num: "1", text: "Koktej në ambijent të hapur" },
         { num: "2", text: "Paragjellë përsonale" },
         { num: "3", text: "Sallatë e kombinuar përsonale" },
-        { num: "4", text: "Katër (4) lloj mishi gjithsej 600 gr për person", sub: ["4/1. Rollad Pule", "4/2. Mish pule", "4/3. Mish viçi", "4/4. Mish i zier dhe i fërguar"] },
+        { num: "4", text: "Katër (4) lloj mishi mishi sherbehen me garnitur", sub: ["4/1. Rollad Pule (Paradark)", "4/2. Mish pule", "4/3. Mish viçi", "4/4. Mish i zier dhe i fërguar"] },
         { num: "5", text: "Pije joalkoolike qelqi pa kufij", sub: ["Pije të gazuara (coca-cola, fanta, shweps etj.)", "Lëngje fruktal (mollë, pjeshkë, vishnje etj.)"] },
         { num: "6", text: "Deserti i tortës sipas marrëveshjes" },
         { num: "7", text: "Birrë Peje, Llashko & Heineken" },
@@ -1008,39 +1008,41 @@ const sallaMenus = [
       ],
     },
   ],
-  // Salla 2 — Menya 1
+ 
   [
     {
-      name: "Menya 1",
+      name: "Menya 4",
       items: [
         { num: "1", text: "Koktej në ambijent të hapur" },
         { num: "2", text: "Paragjellë përsonale" },
         { num: "3", text: "Sallatë e kombinuar përsonale" },
-        { num: "4", text: "Katër (4) lloj mishi gjithsej 600 gr për person", sub: ["4/1. Pleskavicë", "4/2. Mish pule", "4/3. Vishlle viçi", "4/4. Mish i zier dhe i fërguar"] },
+        { num: "4", text: "Katër (4) lloj mishi sherbehen me garnitur", sub: ["4/1. Ramstek", "4/2. Mish pule", "4/3. Vishlle viçi", "4/4. Mish i zier dhe i fërguar"] },
         { num: "5", text: "Pije joalkoolike pa kufij", sub: ["Lëngje fruti (mollë, pjeshkë, vishnje etj.)", "Pije të gazuara (coca-cola, fanta, shweps etj.)"] },
         { num: "6", text: "Deserti i tortës sipas marrëveshjes" },
         { num: "8", text: "Birrë Peje & Birrë Ilashko" },
         { num: "7", text: "Verë e kuqe & Verë e bardhë" },
-        
+        { num: "9", text: "Vodka, Stock" },
+        { num: "10", text: "Jack Daniels" },
+        { num: "11", text: "Jägermeister" },
       ],
     },
   ],
-  // Salla 3 — kombinim i të gjitha
+ 
   [
     {
-      name: "Menya Kombinuar",
+      name: "Menya 5",
       items: [
         { num: "1", text: "Koktej në ambijent të hapur" },
         { num: "2", text: "Paragjellë përsonale" },
         { num: "3", text: "Sallatë e kombinuar përsonale" },
-        { num: "4", text: "Katër (4) lloj mishi gjithsej 600 gr për person", sub: ["4/1. Pleskavicë", "4/2. Mish pule", "4/3. Mish viçi / Ramstek", "4/4. Mish i zier dhe i fërguar"] },
+        { num: "4", text: "Dy (2) lloj mishi sherbehen me garnitur", sub: ["2/2. Mish pule", "2/2. Biftek"] },
         { num: "5", text: "Pije joalkoolike qelqi pa kufij", sub: ["Pije të gazuara (coca-cola, fanta, shweps etj.)", "Lëngje fruktal (mollë, pjeshkë, vishnje etj.)"] },
         { num: "6", text: "Deserti i tortës sipas marrëveshjes" },
         { num: "7", text: "Birrë Peje, Llashko & Heineken" },
         { num: "8", text: "Verë e kuqe, Verë e bardhë" },
         { num: "9", text: "Vodka, Stock" },
         { num: "10", text: "Jack Daniels" },
-        { num: "11", text: "Jogermeister" },
+        { num: "11", text: "Jägermeister" },
       ],
     },
   ],
@@ -1231,13 +1233,9 @@ function GalleryPage({ language, setCurrentPage }) {
   )
 }
 
-const allMenus = [
-  { name: "Menya 1", items: sallaMenus[1][0].items },
-  { name: "Menya 2", items: sallaMenus[0][0].items },
-  { name: "Menya 3", items: sallaMenus[0][1].items },
-  { name: "Menya 4", items: sallaMenus[0][2].items },
-  { name: "Menya 5", items: sallaMenus[2][0].items },
-]
+// Flatten every salla's menus into one ordered list (Menya 1 → Menya 5)
+// so the Menus page always mirrors the sallaMenus source data.
+const allMenus = sallaMenus.flat()
 
 /* ═══════════════════════════════════════════════════
    MENUS PAGE
@@ -1628,19 +1626,19 @@ function SallaPage({ sallaIndex, language, setCurrentPage }) {
           >
             <span className="label-elegant">{language === "al" ? "USHQIMI" : "DINING"}</span>
             <h2 className="text-4xl md:text-5xl font-display font-light text-charcoal mt-4">
-              {language === "al" ? "Menujtë Tona" : "Our Menus"}
+              {language === "al" ? "Menutë Tona" : "Our Menus"}
             </h2>
             <OrnamentDivider />
             <p className="text-warm-gray text-lg max-w-2xl mx-auto mt-6 mb-10">
               {language === "al"
-                ? "Ofrojmë menu të personalizuara për çdo ngjarje. Shikoni të gjitha menujtë tona."
+                ? "Ofrojmë menu të personalizuara për çdo ngjarje. Shikoni të gjitha menutë tona."
                 : "We offer customized menus for every event. View all our menus."}
             </p>
             <button
               className="btn-classic"
               onClick={() => { setCurrentPage("menus"); window.scrollTo({ top: 0 }) }}
             >
-              {language === "al" ? "Shiko Menujtë" : "View Menus"}
+              {language === "al" ? "Shiko Menutë" : "View Menus"}
               <FiChevronRight className="w-4 h-4" />
             </button>
           </motion.div>
