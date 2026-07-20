@@ -45,14 +45,14 @@ const translations = {
     contact: "Contact",
     menus: "Menu",
     gallery: "Gallery",
-    exploreVenue: "Explore Venues",
+    exploreVenue: "Explore",
     scheduleTour: "Schedule a Tour",
     bookNow: "Book Now",
     capacity: "Capacity",
     events: "Events",
     experience: "Experience",
     readyToBook: "Ready to Book?",
-    aboutNobel: "About Nobel Venues",
+    aboutNobel: "About Nobel",
     ourServices: "Our Premium Services",
     advantagesTitle: "Why Choose Nobel",
     parking: "Parking & Location",
@@ -62,7 +62,7 @@ const translations = {
     nobelDesc:
       "Nobel represents the pinnacle of luxury event hosting, where timeless elegance meets modern sophistication. Our prestigious venues offer an unparalleled experience for life's most cherished moments.",
     heroTitle: "Elevate Your Events",
-    heroSubtitle: "Where luxury meets perfection in every celebration",
+    heroSubtitle: "The Home of Your Wedding",
     watchVideo: "Watch Our Story",
     services: [
       "Wedding Planning",
@@ -105,7 +105,7 @@ const translations = {
     conference: "Conference",
     other: "Other",
     details: "Details",
-    venueDetails: "Venue Details",
+    venueDetails: "Details",
     backToHome: "Back to Home",
     venueCapacity: "Capacity",
     eventTypes: "Event Types",
@@ -181,7 +181,7 @@ const translations = {
     events: "Ngjarjet",
     experience: "Përvoja",
     readyToBook: "Gati për Rezervim?",
-    aboutNobel: "Rreth Nobel Venues",
+    aboutNobel: "Rreth Nobel",
     ourServices: "Shërbimet tona Premium",
     advantagesTitle: "Pse të Zgjedhësh Nobel",
     parking: "Parkimi & Vendndodhja", 
@@ -191,7 +191,7 @@ const translations = {
     nobelDesc:
       "Nobel përfaqëson kulmin e organizimit të ngjarjeve luksoze, ku eleganca e përjetshme takohet me sofistikimin modern. Vendet tona prestigjioze ofrojnë një përvojë të pakrahasueshme për momentet më të çmuara të jetës.",
     heroTitle: "Ngrini Ngjarjet Tuaja",
-    heroSubtitle: "Ku luksi takohet me përsosmërinë në çdo festim",
+    heroSubtitle: "Vendi i Dasmës Suaj",
     watchVideo: "Shiko Historinë Tonë",
     services: [
       "Planifikimi i Dasmave",
@@ -751,7 +751,7 @@ function VideoHero({ language }) {
           <motion.img
             key={currentSlide}
             src={heroSliderImages[currentSlide]}
-            alt="Nobel Venues"
+            alt="Nobel"
             className="absolute inset-0 w-full h-full object-cover object-center"
             initial={{ opacity: 0, scale: 1.04 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -787,7 +787,7 @@ function VideoHero({ language }) {
           className="w-14 sm:w-20 h-px bg-gold mx-auto mb-5 sm:mb-8"
         />
 
-        <p className="text-sm sm:text-base md:text-xl text-white/70 font-light mb-8 sm:mb-12 max-w-xs sm:max-w-lg md:max-w-2xl mx-auto leading-relaxed px-2">
+        <p className="font-display uppercase tracking-[0.22em] sm:tracking-[0.3em] text-white/85 font-light text-xl sm:text-3xl md:text-4xl lg:text-5xl mb-8 sm:mb-12 max-w-xs sm:max-w-xl md:max-w-3xl mx-auto leading-snug px-2">
           <AnimatedWords text={t.heroSubtitle} delay={1.2} />
         </p>
 
@@ -1004,6 +1004,7 @@ const sallaMenus = [
         { num: "7", text: "Birrë Peje, Llashko & Heineken" },
         { num: "8", text: "Verë e kuqe, Verë e bardhë, Vodka, Stock" },
         { num: "9", text: "Redbull" },
+        { num: "10", text: "Jägermeister" },
         
       ],
     },
@@ -1016,7 +1017,7 @@ const sallaMenus = [
         { num: "1", text: "Koktej në ambijent të hapur" },
         { num: "2", text: "Paragjellë përsonale" },
         { num: "3", text: "Sallatë e kombinuar përsonale" },
-        { num: "4", text: "Katër (4) lloj mishi sherbehen me garnitur", sub: ["4/1. Ramstek", "4/2. Mish pule", "4/3. Vishlle viçi", "4/4. Mish i zier dhe i fërguar"] },
+        { num: "4", text: "Katër (4) lloj mishi sherbehen me garnitur", sub: ["4/1. Ramstek", "4/2. Mish pule", "4/3. Mish viçi"] },
         { num: "5", text: "Pije joalkoolike pa kufij", sub: ["Lëngje fruti (mollë, pjeshkë, vishnje etj.)", "Pije të gazuara (coca-cola, fanta, shweps etj.)"] },
         { num: "6", text: "Deserti i tortës sipas marrëveshjes" },
         { num: "8", text: "Birrë Peje & Birrë Ilashko" },
@@ -1263,7 +1264,7 @@ function MenusPage({ language, setCurrentPage }) {
                   {i + 1}
                 </span>
                 <div className="pb-2">
-                  <p className="text-xs tracking-[5px] uppercase text-gold mb-1">Nobel Venues</p>
+                  <p className="text-xs tracking-[5px] uppercase text-gold mb-1">Nobel</p>
                   <h2 className="text-3xl md:text-4xl font-display font-light text-charcoal">{menu.name}</h2>
                   <div className="w-12 h-px bg-gold mt-3" />
                 </div>
@@ -1849,7 +1850,7 @@ function Home({ language, setCurrentPage }) {
         <div className="absolute inset-0">
           <img
             src={hallImage1}
-            alt="Nobel Venues"
+            alt="Nobel"
             loading="lazy"
             decoding="async"
             className="w-full h-full object-cover"

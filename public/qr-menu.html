@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hotel Nobel — Menu QR</title>
+  <style>
+    :root{
+      --ivory:#faf7f2; --cream:#f3ede3; --charcoal:#1c1c1c;
+      --gold:#c9a96e; --gold-soft:#d8c19a; --warm:#8a8178;
+    }
+    *{box-sizing:border-box;margin:0;padding:0;}
+    html,body{height:100%;}
+    body{
+      font-family:Georgia,'Times New Roman',serif;
+      background:radial-gradient(circle at 50% 20%, #fffdf9 0%, var(--ivory) 55%, var(--cream) 100%);
+      color:var(--charcoal);
+      display:flex; align-items:center; justify-content:center;
+      min-height:100vh; padding:32px;
+    }
+
+    .card{
+      position:relative;
+      width:400px; max-width:100%;
+      background:var(--ivory);
+      padding:52px 40px 44px;
+      text-align:center;
+      border:1px solid var(--gold-soft);
+      box-shadow:0 30px 70px -30px rgba(28,28,28,.35);
+    }
+    /* inner hairline frame */
+    .card::before{
+      content:""; position:absolute; inset:12px;
+      border:1px solid rgba(201,169,110,.45);
+      pointer-events:none;
+    }
+    /* gold corner brackets */
+    .corner{position:absolute;width:26px;height:26px;border:2px solid var(--gold);}
+    .corner.tl{top:20px;left:20px;border-right:none;border-bottom:none;}
+    .corner.tr{top:20px;right:20px;border-left:none;border-bottom:none;}
+    .corner.bl{bottom:20px;left:20px;border-right:none;border-top:none;}
+    .corner.br{bottom:20px;right:20px;border-left:none;border-top:none;}
+
+    .eyebrow{
+      font-size:11px; letter-spacing:5px; text-transform:uppercase;
+      color:var(--gold); margin-bottom:10px;
+    }
+    h1{
+      font-size:34px; font-weight:400; letter-spacing:3px;
+      text-transform:uppercase; line-height:1.1;
+    }
+
+    /* ornamental divider */
+    .divider{display:flex;align-items:center;justify-content:center;gap:12px;margin:18px 0 6px;}
+    .divider .line{width:46px;height:1px;background:var(--gold);}
+    .divider .diamond{width:7px;height:7px;background:var(--gold);transform:rotate(45deg);}
+
+    .script{
+      font-style:italic; font-size:26px; color:var(--charcoal);
+      margin:8px 0 26px;
+    }
+
+    /* QR frame */
+    .qr-wrap{
+      position:relative; display:inline-block;
+      padding:22px; background:#fff;
+      border:1px solid rgba(201,169,110,.5);
+      box-shadow:inset 0 0 0 4px var(--ivory);
+    }
+    .qr-wrap svg{width:216px;height:216px;display:block;}
+    /* little gold ticks on qr frame */
+    .qr-wrap::before,.qr-wrap::after{
+      content:""; position:absolute; width:14px; height:14px; border:2px solid var(--gold);
+    }
+    .qr-wrap::before{top:-1px;left:-1px;border-right:none;border-bottom:none;}
+    .qr-wrap::after{bottom:-1px;right:-1px;border-left:none;border-top:none;}
+
+    .cta{
+      margin-top:24px; font-size:13px; letter-spacing:3px;
+      text-transform:uppercase; color:var(--charcoal);
+    }
+    .cta span{color:var(--gold);}
+    .hint{
+      margin-top:8px; font-size:12px; font-style:italic; color:var(--warm);
+    }
+
+    .foot{
+      margin-top:30px; padding-top:18px;
+      border-top:1px solid rgba(201,169,110,.3);
+      font-size:11px; letter-spacing:2px; text-transform:uppercase; color:var(--warm);
+    }
+
+    @media print{
+      body{background:#fff;}
+      .card{box-shadow:none;}
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <span class="corner tl"></span><span class="corner tr"></span>
+    <span class="corner bl"></span><span class="corner br"></span>
+
+    <div class="eyebrow">Hotel</div>
+    <h1>Nobel</h1>
+
+    <div class="divider"><span class="line"></span><span class="diamond"></span><span class="line"></span></div>
+    <div class="script">Menyja jonë</div>
+
+    <div class="qr-wrap">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 53 53" shape-rendering="crispEdges"><path stroke="#1c1c1c" d="M0 0.5h7m4 0h2m1 0h2m1 0h2m1 0h1m3 0h1m3 0h5m2 0h3m4 0h1m3 0h7M0 1.5h1m5 0h1m2 0h1m1 0h3m1 0h5m2 0h4m4 0h1m2 0h2m3 0h1m2 0h3m2 0h1m5 0h1M0 2.5h1m1 0h3m1 0h1m1 0h1m4 0h1m1 0h2m1 0h3m1 0h1m1 0h1m3 0h2m1 0h2m1 0h1m2 0h1m5 0h1m2 0h1m1 0h3m1 0h1M0 3.5h1m1 0h3m1 0h1m1 0h1m1 0h1m2 0h2m1 0h4m3 0h1m1 0h1m2 0h2m1 0h1m1 0h2m1 0h2m4 0h1m1 0h1m1 0h1m1 0h3m1 0h1M0 4.5h1m1 0h3m1 0h1m1 0h1m2 0h1m2 0h1m1 0h1m4 0h11m3 0h3m3 0h2m3 0h1m1 0h3m1 0h1M0 5.5h1m5 0h1m1 0h2m2 0h1m1 0h2m6 0h1m1 0h1m3 0h2m5 0h4m3 0h1m3 0h1m5 0h1M0 6.5h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7M8 7.5h1m4 0h6m3 0h1m1 0h1m3 0h1m1 0h1m2 0h1m2 0h1m1 0h2m2 0h1m1 0h1M0 8.5h1m1 0h5m2 0h6m2 0h1m5 0h6m1 0h3m1 0h1m1 0h2m3 0h1m1 0h2m1 0h5M0 9.5h1m1 0h1m2 0h1m4 0h1m1 0h1m2 0h1m1 0h3m2 0h2m1 0h1m1 0h2m3 0h1m2 0h2m3 0h1m1 0h2m1 0h1m3 0h4M6 10.5h3m2 0h2m2 0h1m1 0h3m1 0h1m8 0h3m1 0h2m1 0h2m1 0h2m1 0h1m1 0h2m2 0h2M2 11.5h2m1 0h1m2 0h4m2 0h2m3 0h2m3 0h2m2 0h1m1 0h2m1 0h6m1 0h1m1 0h1m2 0h3m1 0h1m1 0h2M1 12.5h3m2 0h2m1 0h2m1 0h1m2 0h6m2 0h1m2 0h2m1 0h2m2 0h1m1 0h2m2 0h1m1 0h1m1 0h2m1 0h1m1 0h2M0 13.5h2m1 0h3m2 0h1m1 0h3m1 0h5m5 0h2m1 0h2m1 0h1m1 0h3m1 0h2m4 0h2m5 0h1m1 0h2M0 14.5h3m3 0h1m1 0h1m8 0h3m1 0h1m3 0h1m3 0h2m1 0h4m2 0h2m4 0h3m1 0h1m1 0h2M4 15.5h2m2 0h1m2 0h1m1 0h1m2 0h5m1 0h4m1 0h1m2 0h1m1 0h1m1 0h1m3 0h3m2 0h2m3 0h1m3 0h1M3 16.5h1m2 0h1m2 0h1m4 0h1m2 0h2m5 0h3m3 0h1m2 0h2m1 0h1m4 0h4m1 0h1m1 0h4M0 17.5h5m2 0h1m2 0h2m2 0h2m1 0h1m2 0h5m1 0h1m1 0h4m3 0h2m3 0h4m3 0h3m1 0h2M1 18.5h1m1 0h1m2 0h2m4 0h1m3 0h1m1 0h1m1 0h1m1 0h1m2 0h1m3 0h1m1 0h1m2 0h1m1 0h1m2 0h1m3 0h1m2 0h3M0 19.5h3m2 0h1m1 0h2m2 0h5m3 0h1m1 0h5m4 0h3m4 0h4m2 0h1m1 0h1m3 0h1m1 0h1M4 20.5h4m1 0h1m1 0h1m3 0h1m1 0h1m1 0h1m2 0h1m1 0h1m1 0h2m1 0h3m1 0h1m1 0h2m10 0h2m2 0h2M0 21.5h2m7 0h4m1 0h1m2 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h2m5 0h2m1 0h2m1 0h2m2 0h5m1 0h1M1 22.5h4m1 0h3m2 0h1m2 0h1m5 0h2m2 0h1m3 0h2m1 0h1m1 0h4m2 0h1m3 0h3m2 0h3M2 23.5h2m1 0h1m1 0h3m6 0h5m1 0h2m1 0h1m1 0h2m1 0h1m4 0h1m5 0h1m1 0h2m7 0h1M2 24.5h1m1 0h5m3 0h3m2 0h3m4 0h6m1 0h1m2 0h3m1 0h1m2 0h1m1 0h9M0 25.5h5m3 0h2m1 0h1m5 0h8m3 0h5m4 0h1m1 0h6m3 0h1m1 0h3M2 26.5h1m1 0h1m1 0h1m1 0h1m1 0h2m4 0h1m3 0h2m1 0h2m1 0h1m1 0h1m2 0h5m1 0h2m3 0h1m1 0h1m1 0h1m1 0h2m1 0h1M4 27.5h1m3 0h1m2 0h1m1 0h2m1 0h3m2 0h1m1 0h2m3 0h3m4 0h2m2 0h2m3 0h1m3 0h2m1 0h1M1 28.5h2m1 0h6m2 0h5m7 0h6m3 0h1m1 0h2m1 0h2m4 0h5m1 0h1m1 0h1M3 29.5h1m1 0h1m4 0h3m1 0h2m1 0h1m1 0h1m3 0h1m1 0h2m1 0h1m1 0h1m1 0h1m9 0h2m1 0h4m2 0h2M0 30.5h1m2 0h1m1 0h5m1 0h1m2 0h1m1 0h1m2 0h1m5 0h2m4 0h1m1 0h2m1 0h3m1 0h1m4 0h1m1 0h1M0 31.5h5m2 0h4m2 0h1m1 0h1m1 0h4m1 0h1m1 0h1m1 0h2m1 0h1m2 0h3m2 0h2m1 0h2m2 0h3m1 0h2m1 0h1M1 32.5h1m4 0h1m2 0h1m1 0h2m1 0h1m1 0h7m2 0h3m5 0h1m1 0h5m1 0h1m4 0h2m2 0h3M1 33.5h2m1 0h2m4 0h2m1 0h4m1 0h2m3 0h1m5 0h1m3 0h1m1 0h3m2 0h1m1 0h1m1 0h1m1 0h1m1 0h1m3 0h1M0 34.5h1m5 0h2m1 0h3m12 0h1m3 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h2m1 0h1m1 0h1m1 0h1m1 0h3M0 35.5h1m2 0h3m1 0h2m1 0h2m2 0h2m1 0h1m1 0h5m1 0h1m4 0h1m1 0h2m2 0h3m1 0h1m2 0h7m1 0h2M0 36.5h1m1 0h1m1 0h3m1 0h5m2 0h1m3 0h1m3 0h1m4 0h1m1 0h2m1 0h1m1 0h2m1 0h1m5 0h2m1 0h1m2 0h2M0 37.5h1m2 0h3m2 0h4m1 0h1m2 0h3m1 0h4m2 0h2m1 0h2m4 0h4m2 0h2m5 0h2m1 0h2M0 38.5h2m3 0h2m3 0h2m2 0h2m1 0h1m1 0h3m5 0h1m2 0h2m1 0h4m1 0h1m9 0h1m2 0h1M2 39.5h1m1 0h1m3 0h1m1 0h1m1 0h2m1 0h1m1 0h1m1 0h2m2 0h4m3 0h5m2 0h4m2 0h4m1 0h1M0 40.5h1m2 0h2m1 0h1m4 0h1m1 0h2m1 0h3m2 0h1m1 0h3m1 0h1m2 0h2m3 0h3m6 0h1m5 0h1M0 41.5h1m1 0h2m4 0h2m2 0h2m1 0h3m1 0h1m6 0h2m1 0h3m3 0h1m1 0h1m2 0h1m1 0h5m1 0h1m2 0h2M0 42.5h2m1 0h4m1 0h1m2 0h1m3 0h1m2 0h3m4 0h5m4 0h2m2 0h1m1 0h3m4 0h1m2 0h1M1 43.5h2m6 0h1m2 0h1m2 0h3m1 0h2m2 0h1m1 0h2m2 0h2m1 0h3m4 0h1m1 0h1m1 0h1m1 0h3m4 0h1M3 44.5h1m2 0h1m2 0h1m3 0h2m3 0h1m1 0h1m2 0h8m2 0h1m1 0h6m3 0h7m1 0h1M8 45.5h2m3 0h1m2 0h1m1 0h1m3 0h3m3 0h3m1 0h1m2 0h2m4 0h4m3 0h5M0 46.5h7m2 0h2m1 0h2m1 0h2m5 0h1m1 0h1m1 0h1m1 0h2m3 0h4m1 0h2m3 0h2m1 0h1m1 0h1M0 47.5h1m5 0h1m1 0h3m2 0h3m2 0h2m1 0h2m1 0h1m3 0h2m2 0h2m1 0h1m1 0h1m1 0h3m1 0h2m3 0h2M0 48.5h1m1 0h3m1 0h1m1 0h1m1 0h1m8 0h2m1 0h1m1 0h5m1 0h2m4 0h3m2 0h1m1 0h6m1 0h2M0 49.5h1m1 0h3m1 0h1m1 0h1m3 0h1m1 0h4m1 0h1m1 0h1m1 0h3m1 0h1m1 0h1m5 0h1m4 0h8m3 0h2M0 50.5h1m1 0h3m1 0h1m1 0h1m1 0h2m1 0h2m1 0h2m2 0h1m3 0h1m1 0h1m4 0h1m2 0h1m1 0h3m2 0h2m2 0h1m2 0h2M0 51.5h1m5 0h1m2 0h1m1 0h4m4 0h2m1 0h1m7 0h2m8 0h4m1 0h3m1 0h1m1 0h1M0 52.5h7m1 0h2m1 0h1m1 0h1m1 0h1m1 0h2m1 0h1m2 0h2m1 0h2m1 0h2m2 0h7m1 0h8m1 0h1"/></svg>
+    </div>
+
+    <div class="cta">Skanoni për <span>Menynë</span></div>
+    <div class="hint">Scan to view our menu</div>
+
+    <div class="foot">Hotel Nobel</div>
+  </div>
+</body>
+</html>
